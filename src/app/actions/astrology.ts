@@ -56,3 +56,7 @@ export async function calculateRashifalAction(rashiSlug: string) {
   const calcDate = new Date(`${dateStr}T12:00:00Z`);
   return provider.getDailyRashifal(calcDate, rashiSlug);
 }
+
+export async function calculateMatchingAction(boyData: BirthData, girlData: BirthData) {
+  return provider.calculateMatching(boyData, girlData);
+}

@@ -1,0 +1,172 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.formsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .formsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.formCard {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+
+.formCard h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.resultSection {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px dashed var(--border);
+}
+
+.scoreBanner {
+  background-color: rgba(245, 158, 11, 0.1);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.scoreBanner h2 {
+  font-size: 3rem;
+  color: var(--primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.scoreBanner p {
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.interpretation {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: var(--text-light);
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.infoCard {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+}
+
+.infoCard h4 {
+  margin-top: 0;
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.infoCard p {
+  margin: 0.25rem 0;
+  font-weight: 500;
+}
+
+.doshaWarning {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.doshaClear {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.kootTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  background-color: var(--surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.kootTable th, .kootTable td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.kootTable th {
+  background-color: var(--background);
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.kootTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.kootName {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.kootScore {
+  font-weight: 700;
+  text-align: center;
+}
+
+.fullScore {
+  color: #22c55e;
+}
+
+.zeroScore {
+  color: #ef4444;
+}
+
+.disclaimer {
+  padding: 1.5rem;
+  background-color: var(--background);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--primary);
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+@media (max-width: 639px) {
+  .kootTable {
+    display: block;
+    overflow-x: auto;
+  }
+}

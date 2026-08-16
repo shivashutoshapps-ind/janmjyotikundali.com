@@ -13,6 +13,8 @@ import { checkMangalDosha } from './vedic/dosha';
 import { calculatePlanetaryPositions } from './transit/transits';
 import { calculateDailyRashifal } from './transit/transitCalculator';
 import { RashifalResult } from './transit/transitTypes';
+import { MatchingResult } from './matching/matchingTypes';
+import { calculateGunaMilan } from './matching/gunaMilan';
 
 /**
  * Implementation of the astrology provider using pure JS `astronomy-engine`.
@@ -148,6 +150,10 @@ export class AstronomyEngineProvider implements AstrologyCalculationProvider {
 
   async getDailyRashifal(date: Date, rashiSlug: string): Promise<RashifalResult | null> {
     return calculateDailyRashifal(date, rashiSlug);
+  }
+
+  async calculateMatching(boyData: BirthData, girlData: BirthData): Promise<MatchingResult | null> {
+    return calculateGunaMilan(boyData, girlData, this);
   }
 }
 
