@@ -12,8 +12,37 @@ const notoSansDevanagari = Noto_Sans_Devanagari({
 });
 
 export const metadata: Metadata = {
-  title: "JanmJyoti - आपकी जन्मकुंडली और राशिफल",
-  description: "JanmJyoti provides simplified, trustworthy Indian astrology, daily Rashifal, and free personalized Kundli in Hindi.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://janmjyotikundali.com'),
+  title: {
+    template: '%s | JanmJyoti',
+    default: 'JanmJyoti - सत्य, सरल और सटीक भारतीय ज्योतिष',
+  },
+  description: 'JanmJyoti provides trustworthy Indian astrology, daily Rashifal, free personalized Kundli, Panchang, and astrology tools in Hindi.',
+  keywords: ['जन्मकुंडली', 'राशिफल', 'astrology in hindi', 'free kundli', 'kundali matching', 'panchang', 'vedic astrology', 'ज्योतिष'],
+  openGraph: {
+    title: 'JanmJyoti - सत्य, सरल और सटीक भारतीय ज्योतिष',
+    description: 'JanmJyoti provides trustworthy Indian astrology, daily Rashifal, free personalized Kundli, Panchang, and astrology tools in Hindi.',
+    url: 'https://janmjyotikundali.com',
+    siteName: 'JanmJyoti',
+    locale: 'hi_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'JanmJyoti - भारतीय ज्योतिष',
+    description: 'Trustworthy Indian astrology and Kundli tools in Hindi.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({

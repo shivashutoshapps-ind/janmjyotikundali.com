@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     description: 'JanmJyoti provides trustworthy Indian astrology, daily Rashifal, free personalized Kundli, Panchang, and astrology tools in Hindi.',
     type: 'website',
     locale: 'hi_IN',
+  },
+  alternates: {
+    canonical: '/',
   }
 };
 
