@@ -118,4 +118,29 @@ describe('Vedic Astrology Engine Validation', () => {
     // Day Choghadiya for Friday starts with Chal
     expect(panchang?.dayChoghadiya[0].name).toContain('चल');
   });
+
+  test('Transit Engine - Planetary Positions', async () => {
+    // 15 Aug 1947 UTC
+    const date = new Date('1947-08-14T18:30:00Z');
+    const transits = await provider.getDailyRashifal(date, 'kark');
+    
+    expect(transits).toBeDefined();
+    expect(transits?.moonSignDevanagari).toBe('कर्क');
+    
+    const moonSignal = transits?.signals.find(s => s.planet.includes('चंद्र'));
+    expect(moonSignal).toBeDefined();
+    
+    // Moon should be in Cancer (Kark) on 15 Aug 1947. 
+    // Wait, 14 Aug 18:30 is exact start of 15 Aug IST.
+    // India Independence Moon was in Cancer.
+    expect(moonSignal?.transitRashi).toContain('कर्क');
+    // If Moon is in Cancer, and user MoonSign is Kark, fromMoonHouse should be 1.
+    expect(moonSignal?.fromMoonHouse).toBe(1);
+
+    // Let's check house mapping for another Rashi (e.g. Makar = 10, Kark = 4)
+    // House = (4 - 10 + 12) % 12 + 1 = 6 + 1 = 7.
+    const transitsMakar = await provider.getDailyRashifal(date, 'makar');
+    const moonSignalMakar = transitsMakar?.signals.find(s => s.planet.includes('चंद्र'));
+    expect(moonSignalMakar?.fromMoonHouse).toBe(7); // Moon in Cancer is 7th from Capricorn
+  });
 });

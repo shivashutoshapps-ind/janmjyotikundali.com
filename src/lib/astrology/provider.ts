@@ -6,6 +6,7 @@ import {
   KundliResult, 
   PanchangResult 
 } from './types';
+import { RashifalResult } from './transit/transitTypes';
 
 /**
  * Interface defining the contract for any astrology calculation engine
@@ -36,4 +37,9 @@ export interface AstrologyCalculationProvider {
    * Retrieves or calculates daily Panchang data
    */
   getPanchang(date: Date, place: BirthData['place']): Promise<PanchangResult | null>;
+
+  /**
+   * Generates Daily Rashifal based on Moon Sign
+   */
+  getDailyRashifal(date: Date, rashiSlug: string): Promise<RashifalResult | null>;
 }
