@@ -8,6 +8,9 @@ import { calculateNakshatra } from './vedic/nakshatra';
 import { calculateLagna } from './vedic/lagna';
 import { calculateWholeSignHouses } from './vedic/houses';
 import { calculatePanchang } from './vedic/panchang';
+import { calculateMeanLunarNode } from './vedic/nodes';
+import { calculateVimshottariMahadasha } from './vedic/dasha';
+import { checkMangalDosha } from './vedic/dosha';
 
 /**
  * Implementation of the astrology provider using pure JS `astronomy-engine`.
@@ -96,6 +99,17 @@ export class AstronomyEngineProvider implements AstrologyCalculationProvider {
       { id: Body.Saturn, name: 'शनि (Saturn)' },
     ];
     
+    // Calculate Houses (Whole Sign)
+    const lagnaSignIndex = RASHI_NAMES.indexOf(lagnaResult.lagna);
+    const fullLagnaLon = (lagnaSignIndex * 30) + lagnaResult.degree;
+    let wholeSignHouses = calculateWholeSignHouses(fullLagnaLon).map(h => ({ ...h, planets: [] as string[] }));
+
+    // Helper to find house number based on sign
+    const getHouseNumber = (sign: string) => {
+      const house = wholeSignHouses.find(h => h.sign === sign);
+      return house ? house.houseNumber : 1;
+    };
+
     const planets: PlanetPosition[] = bodies.map(b => {
       const equ = Equator(b.id, time, observer, true, true);
       const ecl = Ecliptic(equ.vec);
@@ -103,20 +117,62 @@ export class AstronomyEngineProvider implements AstrologyCalculationProvider {
       const sidereal = convertToSidereal(tropLon, ayanamsa);
       const rashiInfo = calculateRashi(sidereal);
       const nakshatraInfo = calculateNakshatra(sidereal);
+      const houseNum = getHouseNumber(rashiInfo.rashi);
       
       return {
         planet: b.name,
         degree: sidereal,
         rashi: rashiInfo.rashi,
         nakshatra: nakshatraInfo.nakshatra,
-        isRetrograde: false
+        house: houseNum,
+        isRetrograde: false // Placeholder as astronomy-engine velocity needs to be checked for real retrograde
       };
     });
     
-    // Calculate Houses (Whole Sign)
-    const lagnaSignIndex = RASHI_NAMES.indexOf(lagnaResult.lagna);
-    const fullLagnaLon = (lagnaSignIndex * 30) + lagnaResult.degree;
-    const wholeSignHouses = calculateWholeSignHouses(fullLagnaLon);
+    // Add Rahu and Ketu
+    const rahuSidereal = (calculateMeanLunarNode(time.ut) - ayanamsa + 360) % 360;
+    const ketuSidereal = (rahuSidereal + 180) % 360;
+    
+    const rahuRashi = calculateRashi(rahuSidereal);
+    const ketuRashi = calculateRashi(ketuSidereal);
+    const rahuNakshatra = calculateNakshatra(rahuSidereal);
+    const ketuNakshatra = calculateNakshatra(ketuSidereal);
+
+    planets.push({
+      planet: 'राहु (Rahu)',
+      degree: rahuSidereal,
+      rashi: rahuRashi.rashi,
+      nakshatra: rahuNakshatra.nakshatra,
+      house: getHouseNumber(rahuRashi.rashi),
+      isRetrograde: true // Nodes are always retrograde
+    });
+
+    planets.push({
+      planet: 'केतु (Ketu)',
+      degree: ketuSidereal,
+      rashi: ketuRashi.rashi,
+      nakshatra: ketuNakshatra.nakshatra,
+      house: getHouseNumber(ketuRashi.rashi),
+      isRetrograde: true
+    });
+
+    // Assign planets to houses
+    planets.forEach(p => {
+      const house = wholeSignHouses.find(h => h.houseNumber === p.house);
+      if (house) {
+        house.planets.push(p.planet);
+      }
+    });
+
+    // Dasha Foundation
+    const mahadashas = calculateVimshottariMahadasha(moonSidereal, utcDate);
+    
+    // Dosha Foundation
+    const mars = planets.find(p => p.planet === 'मंगल (Mars)');
+    const doshas = [];
+    if (mars && mars.house) {
+      doshas.push(checkMangalDosha(mars.house));
+    }
 
     return {
       birthData: data,
@@ -124,7 +180,9 @@ export class AstronomyEngineProvider implements AstrologyCalculationProvider {
       rashi: rashiResult,
       nakshatra: nakshatraResult,
       planets,
-      houses: wholeSignHouses
+      houses: wholeSignHouses,
+      mahadashas,
+      doshas
     };
   }
 

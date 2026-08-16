@@ -1,0 +1,37 @@
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  margin-top: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Ensure horizontal scroll on small devices rather than squishing */
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text);
+}
+
+.table th {
+  background: rgba(var(--primary-rgb), 0.05);
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.table tbody tr:hover {
+  background: rgba(var(--primary-rgb), 0.02);
+}
+
+.planetName {
+  font-weight: 500;
+}

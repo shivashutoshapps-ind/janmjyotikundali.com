@@ -57,12 +57,25 @@ export interface PanchangResult {
   moonset: string;
 }
 
+export interface Mahadasha {
+  planet: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface DoshaResult {
+  name: string;
+  isPresent: boolean;
+  description: string;
+}
+
 export interface KundliResult {
   birthData: BirthData;
   lagna: LagnaResult;
   rashi: RashiResult;
   nakshatra: NakshatraResult;
   planets: PlanetPosition[];
-  houses: { houseNumber: number; sign: string; degree: number }[];
-  // Dashas, Yogas, and Doshas will be added when engine is fully implemented
+  houses: { houseNumber: number; sign: string; degree: number; planets: string[] }[];
+  mahadashas: Mahadasha[];
+  doshas: DoshaResult[];
 }

@@ -64,9 +64,34 @@ describe('Vedic Astrology Engine Validation', () => {
     const panchang = await provider.getPanchang(date, indiaIndependenceData.place);
     
     expect(panchang).toBeDefined();
-    expect(panchang?.vara).toContain('Thursday'); // 14 Aug 1947 UTC was a Thursday
-    // Note: Local date 15 Aug was a Friday, but getPanchang relies on the UTC Date passed.
-    // So the vara in panchang currently uses UTC Date logic `getUTCDay()` which might be Thursday for 18:30 UTC. 
-    // This is a known limitation to document.
+    expect(panchang?.vara).toContain('Thursday');
+  });
+
+  test('India Independence - Full Kundli (Nodes, Houses, Dasha)', async () => {
+    const kundli = await provider.calculateKundli(indiaIndependenceData);
+    expect(kundli).toBeDefined();
+    
+    // Check Nodes
+    const rahu = kundli?.planets.find(p => p.planet === 'राहु (Rahu)');
+    const ketu = kundli?.planets.find(p => p.planet === 'केतु (Ketu)');
+    expect(rahu).toBeDefined();
+    expect(ketu).toBeDefined();
+    expect(rahu?.isRetrograde).toBe(true);
+    
+    // Nodes should be approximately 180 degrees apart
+    const diff = Math.abs((rahu?.degree || 0) - (ketu?.degree || 0));
+    expect(Math.abs(diff - 180)).toBeCloseTo(0, 1);
+
+    // Check Houses
+    expect(kundli?.houses.length).toBe(12);
+    // Taurus is 2nd sign. So 1st house should be Taurus.
+    expect(kundli?.houses[0].sign).toContain('वृषभ');
+    
+    // Check Dasha
+    expect(kundli?.mahadashas.length).toBe(9);
+    const firstDasha = kundli?.mahadashas[0];
+    
+    // India Independence Moon is in Pushya (Saturn). So first Dasha must be Saturn.
+    expect(firstDasha?.planet).toContain('शनि (Saturn)');
   });
 });
