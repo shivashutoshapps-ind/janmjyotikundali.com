@@ -1,0 +1,50 @@
+.placeholderContainer {
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.placeholderTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.placeholderList {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.placeholderList li {
+  font-size: 0.95rem;
+  color: var(--foreground);
+}
+
+.placeholderList strong {
+  color: var(--foreground);
+}
+
+.resetBtn {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--foreground);
+  transition: all 0.2s ease;
+}
+
+.resetBtn:hover {
+  background-color: var(--background);
+  border-color: var(--primary);
+  color: var(--primary);
+}

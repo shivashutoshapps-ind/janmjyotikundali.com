@@ -1,0 +1,109 @@
+.header {
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLink {
+  font-weight: 500;
+  color: var(--foreground);
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.navLink:hover, .navLink:focus-visible {
+  color: var(--primary);
+  outline: none;
+}
+
+.navLink:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.mobileMenuBtn {
+  display: flex;
+  background: none;
+  border: none;
+  color: var(--foreground);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.mobileMenuBtn:focus-visible {
+  outline: 2px solid var(--primary);
+}
+
+/* Mobile Menu Styles */
+.mobileNav {
+  display: none;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.mobileNavOpen {
+  display: block;
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.mobileNavLink {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+  color: var(--foreground);
+  font-size: 1.1rem;
+}
+
+.mobileNavLink:last-of-type {
+  border-bottom: none;
+}
+
+.mobileNavAction {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 992px) {
+  .desktopNav {
+    display: flex;
+  }
+  .mobileMenuBtn {
+    display: none;
+  }
+  .mobileNav, .mobileNavOpen {
+    display: none;
+  }
+}
