@@ -44,17 +44,42 @@ export interface LagnaResult {
   description: string;
 }
 
+export interface TimeRange {
+  name: string;
+  start: string;
+  end: string;
+}
+
+export interface Choghadiya extends TimeRange {
+  type: 'शुभ' | 'लाभ' | 'अमृत' | 'चल' | 'रोग' | 'काल' | 'उद्वेग';
+}
+
+export interface PanchangElement {
+  number: number;
+  name: string;
+}
+
+export interface TithiResult extends PanchangElement {
+  paksha: 'Shukla' | 'Krishna';
+}
+
 export interface PanchangResult {
   date: string;
-  tithi: string;
-  nakshatra: string;
-  yoga: string;
-  karana: string;
+  location: BirthPlace;
   vara: string;
   sunrise: string;
   sunset: string;
   moonrise: string;
   moonset: string;
+  tithi: TithiResult;
+  nakshatra: NakshatraResult;
+  yoga: PanchangElement;
+  karana: PanchangElement;
+  rahuKaal: TimeRange;
+  yamaganda: TimeRange;
+  gulika: TimeRange;
+  dayChoghadiya: Choghadiya[];
+  nightChoghadiya: Choghadiya[];
 }
 
 export interface Mahadasha {

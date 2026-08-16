@@ -45,39 +45,131 @@
   height: 42px;
 }
 
-.dataGrid {
+/* Dashboard Styles */
+.dashboard {
+  padding: 1rem;
+  background: var(--surface);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.headerSection {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.grid2 {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
-  .dataGrid {
+  .grid2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid3 {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.dataItem {
-  background-color: var(--surface);
+.card {
+  background: var(--background);
+  padding: 1.5rem;
+  border-radius: 8px;
   border: 1px solid var(--border);
+}
+
+.card h4 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.list li:last-child {
+  border-bottom: none;
+}
+
+.kaalBox {
   padding: 1rem;
-  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border-left: 4px solid var(--border);
+  border-radius: 4px;
+}
+
+.kaalBox h5 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.kaalBox p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.choghadiyaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .choghadiyaGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.choghadiyaBox {
+  padding: 0.75rem;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  border: 1px solid transparent;
 }
 
-.label {
+.choghadiyaBox strong {
+  margin-bottom: 0.25rem;
+}
+
+.choghadiyaBox span {
   font-size: 0.85rem;
-  color: var(--foreground);
-  opacity: 0.7;
-  margin-bottom: 0.5rem;
+  opacity: 0.9;
 }
 
-.value {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--primary);
+.good {
+  background-color: rgba(22, 163, 74, 0.05);
+  border-color: rgba(22, 163, 74, 0.2);
+  color: #16a34a;
+}
+
+.bad {
+  background-color: rgba(220, 38, 38, 0.05);
+  border-color: rgba(220, 38, 38, 0.2);
+  color: #dc2626;
 }

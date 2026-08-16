@@ -22,10 +22,18 @@ export async function calculateKundliAction(data: BirthData) {
 }
 
 export async function calculatePanchangAction(dateStr: string, locationStr: string) {
-  // Simple mock location mapping for development deterministic test cases
   const locationMap: Record<string, {name: string, latitude: number, longitude: number, timezone: string}> = {
     'नई दिल्ली': { name: 'New Delhi', latitude: 28.6139, longitude: 77.2090, timezone: 'Asia/Kolkata' },
+    'delhi': { name: 'New Delhi', latitude: 28.6139, longitude: 77.2090, timezone: 'Asia/Kolkata' },
     'mumbai': { name: 'Mumbai', latitude: 19.0760, longitude: 72.8777, timezone: 'Asia/Kolkata' },
+    'kolkata': { name: 'Kolkata', latitude: 22.5726, longitude: 88.3639, timezone: 'Asia/Kolkata' },
+    'chennai': { name: 'Chennai', latitude: 13.0827, longitude: 80.2707, timezone: 'Asia/Kolkata' },
+    'bengaluru': { name: 'Bengaluru', latitude: 12.9716, longitude: 77.5946, timezone: 'Asia/Kolkata' },
+    'hyderabad': { name: 'Hyderabad', latitude: 17.3850, longitude: 78.4867, timezone: 'Asia/Kolkata' },
+    'lucknow': { name: 'Lucknow', latitude: 26.8467, longitude: 80.9462, timezone: 'Asia/Kolkata' },
+    'jaipur': { name: 'Jaipur', latitude: 26.9124, longitude: 75.7873, timezone: 'Asia/Kolkata' },
+    'patna': { name: 'Patna', latitude: 25.5941, longitude: 85.1376, timezone: 'Asia/Kolkata' },
+    'chandigarh': { name: 'Chandigarh', latitude: 30.7333, longitude: 76.7794, timezone: 'Asia/Kolkata' },
   };
 
   const locKey = Object.keys(locationMap).find(k => locationStr.toLowerCase().includes(k)) || 'नई दिल्ली';

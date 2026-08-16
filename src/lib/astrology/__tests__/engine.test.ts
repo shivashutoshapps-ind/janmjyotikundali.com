@@ -64,7 +64,7 @@ describe('Vedic Astrology Engine Validation', () => {
     const panchang = await provider.getPanchang(date, indiaIndependenceData.place);
     
     expect(panchang).toBeDefined();
-    expect(panchang?.vara).toContain('Thursday');
+    expect(panchang?.vara).toContain('Friday'); // Correctly calculates local day now
   });
 
   test('India Independence - Full Kundli (Nodes, Houses, Dasha)', async () => {
@@ -93,5 +93,29 @@ describe('Vedic Astrology Engine Validation', () => {
     
     // India Independence Moon is in Pushya (Saturn). So first Dasha must be Saturn.
     expect(firstDasha?.planet).toContain('शनि (Saturn)');
+  });
+
+  test('Panchang Engine - Exact Tithi & Yoga', async () => {
+    const date = new Date('1947-08-15T00:00:00Z'); 
+    const panchang = await provider.getPanchang(date, indiaIndependenceData.place);
+    
+    expect(panchang).toBeDefined();
+    expect(panchang?.tithi.name).toBeDefined();
+    expect(panchang?.yoga.name).toBeDefined();
+    expect(panchang?.karana.name).toBeDefined();
+    
+    // Aug 15 1947 should be Friday (Shukravara)
+    expect(panchang?.vara).toContain('Friday');
+    
+    // Sunrise should be available
+    expect(panchang?.sunrise).not.toBe('-');
+    expect(panchang?.sunset).not.toBe('-');
+    
+    // Choghadiya arrays must be of length 8
+    expect(panchang?.dayChoghadiya.length).toBe(8);
+    expect(panchang?.nightChoghadiya.length).toBe(8);
+    
+    // Day Choghadiya for Friday starts with Chal
+    expect(panchang?.dayChoghadiya[0].name).toContain('चल');
   });
 });

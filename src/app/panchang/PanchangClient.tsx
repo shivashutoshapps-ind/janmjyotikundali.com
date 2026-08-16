@@ -55,34 +55,81 @@ export const PanchangClient: React.FC = () => {
         />
         
         {status === 'success' && result && (
-          <div className={styles.dataGrid}>
-            <div className={styles.dataItem}>
-              <span className={styles.label}>तिथि</span>
-              <span className={styles.value}>{result.tithi}</span>
+          <div className={styles.dashboard}>
+            <div className={styles.headerSection}>
+              <h3 style={{ color: 'var(--primary)', textAlign: 'center', marginBottom: '0.5rem' }}>आज का पंचांग</h3>
+              <p style={{ textAlign: 'center', color: 'var(--text-light)', marginBottom: '2rem' }}>
+                {result.date} | {result.location.name}
+              </p>
             </div>
-            <div className={styles.dataItem}>
-              <span className={styles.label}>नक्षत्र</span>
-              <span className={styles.value}>{result.nakshatra}</span>
+
+            <div className={styles.grid2}>
+              <div className={styles.card}>
+                <h4>मूल पंचांग</h4>
+                <ul className={styles.list}>
+                  <li><strong>वार (Day):</strong> {result.vara}</li>
+                  <li><strong>तिथि (Tithi):</strong> {result.tithi.name} ({result.tithi.paksha} Paksha)</li>
+                  <li><strong>नक्षत्र (Nakshatra):</strong> {result.nakshatra.nakshatra} (चरण {result.nakshatra.pada})</li>
+                  <li><strong>योग (Yoga):</strong> {result.yoga.name}</li>
+                  <li><strong>करण (Karana):</strong> {result.karana.name}</li>
+                </ul>
+              </div>
+
+              <div className={styles.card}>
+                <h4>सूर्य और चंद्र (Sun & Moon)</h4>
+                <ul className={styles.list}>
+                  <li><strong>सूर्योदय (Sunrise):</strong> {new Date(result.sunrise).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})}</li>
+                  <li><strong>सूर्यास्त (Sunset):</strong> {new Date(result.sunset).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})}</li>
+                  <li><strong>चंद्रोदय (Moonrise):</strong> {result.moonrise !== '-' ? new Date(result.moonrise).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'}) : '-'}</li>
+                  <li><strong>चंद्रास्त (Moonset):</strong> {result.moonset !== '-' ? new Date(result.moonset).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'}) : '-'}</li>
+                </ul>
+              </div>
             </div>
-            <div className={styles.dataItem}>
-              <span className={styles.label}>योग</span>
-              <span className={styles.value}>{result.yoga}</span>
+
+            <div className={styles.card} style={{ marginTop: '2rem' }}>
+              <h4>अशुभ काल (Inauspicious Timings)</h4>
+              <div className={styles.grid3}>
+                <div className={styles.kaalBox} style={{ borderLeftColor: '#ef4444' }}>
+                  <h5>{result.rahuKaal.name}</h5>
+                  <p>{new Date(result.rahuKaal.start).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})} - {new Date(result.rahuKaal.end).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})}</p>
+                </div>
+                <div className={styles.kaalBox} style={{ borderLeftColor: '#f97316' }}>
+                  <h5>{result.yamaganda.name}</h5>
+                  <p>{new Date(result.yamaganda.start).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})} - {new Date(result.yamaganda.end).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})}</p>
+                </div>
+                <div className={styles.kaalBox} style={{ borderLeftColor: '#eab308' }}>
+                  <h5>{result.gulika.name}</h5>
+                  <p>{new Date(result.gulika.start).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})} - {new Date(result.gulika.end).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})}</p>
+                </div>
+              </div>
             </div>
-            <div className={styles.dataItem}>
-              <span className={styles.label}>करण</span>
-              <span className={styles.value}>{result.karana}</span>
+
+            <div className={styles.card} style={{ marginTop: '2rem' }}>
+              <h4>दिन का चौघड़िया (Day Choghadiya)</h4>
+              <div className={styles.choghadiyaGrid}>
+                {result.dayChoghadiya.map((c, i) => (
+                  <div key={i} className={`${styles.choghadiyaBox} ${styles[c.type === 'रोग' || c.type === 'उद्वेग' || c.type === 'काल' ? 'bad' : 'good']}`}>
+                    <strong>{c.name}</strong>
+                    <span>{new Date(c.start).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className={styles.dataItem}>
-              <span className={styles.label}>वार (Day)</span>
-              <span className={styles.value}>{result.vara}</span>
+
+            <div className={styles.card} style={{ marginTop: '2rem' }}>
+              <h4>रात का चौघड़िया (Night Choghadiya)</h4>
+              <div className={styles.choghadiyaGrid}>
+                {result.nightChoghadiya.map((c, i) => (
+                  <div key={i} className={`${styles.choghadiyaBox} ${styles[c.type === 'रोग' || c.type === 'उद्वेग' || c.type === 'काल' ? 'bad' : 'good']}`}>
+                    <strong>{c.name}</strong>
+                    <span>{new Date(c.start).toLocaleTimeString('hi-IN', {hour: '2-digit', minute:'2-digit'})}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className={styles.dataItem}>
-              <span className={styles.label}>सूर्योदय</span>
-              <span className={styles.value}>{result.sunrise}</span>
-            </div>
-            <div className={styles.dataItem}>
-              <span className={styles.label}>सूर्यास्त</span>
-              <span className={styles.value}>{result.sunset}</span>
+            
+            <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'var(--background)', borderRadius: '8px', borderLeft: '4px solid #f59e0b', fontSize: '0.9rem', color: 'var(--text-light)', lineHeight: '1.6' }}>
+              <strong>अस्वीकरण (Disclaimer):</strong> यह एक पारंपरिक पंचांग गणना है। किसी भी महत्वपूर्ण कार्य से पहले स्थानीय विशेषज्ञ से परामर्श लें।
             </div>
           </div>
         )}
