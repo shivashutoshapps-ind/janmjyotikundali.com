@@ -1,0 +1,42 @@
+# Nginx Configuration Example for JanmJyoti
+# Place this file in /etc/nginx/sites-available/janmjyotikundali.conf
+# and symlink to /etc/nginx/sites-enabled/
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name janmjyotikundali.com www.janmjyotikundali.com;
+
+    # Redirect HTTP to HTTPS (uncomment once SSL is configured via Certbot)
+    # return 301 https://$host$request_uri;
+}
+
+# Uncomment the block below after running certbot to enable SSL
+# server {
+#     listen 443 ssl http2;
+#     listen [::]:443 ssl http2;
+#     server_name janmjyotikundali.com www.janmjyotikundali.com;
+#
+#     # SSL Certificates (managed by Certbot)
+#     # ssl_certificate /etc/letsencrypt/live/janmjyotikundali.com/fullchain.pem;
+#     # ssl_certificate_key /etc/letsencrypt/live/janmjyotikundali.com/privkey.pem;
+#
+#     # Canonical redirect for WWW to Non-WWW
+#     if ($host = www.janmjyotikundali.com) {
+#         return 301 https://janmjyotikundali.com$request_uri;
+#     }
+#
+#     location / {
+#         proxy_pass http://127.0.0.1:3000;
+#         proxy_http_version 1.1;
+#         proxy_set_header Upgrade $http_upgrade;
+#         proxy_set_header Connection 'upgrade';
+#         proxy_set_header Host $host;
+#         proxy_cache_bypass $http_upgrade;
+#         
+#         # Forward real client IP to Next.js
+#         proxy_set_header X-Real-IP $remote_addr;
+#         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#         proxy_set_header X-Forwarded-Proto $scheme;
+#     }
+# }
