@@ -116,7 +116,7 @@ export const KundliClient: React.FC = () => {
               </div>
 
               <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'var(--background)', borderRadius: '8px', borderLeft: '4px solid #f59e0b', fontSize: '0.9rem', color: 'var(--text-light)', lineHeight: '1.6' }}>
-                <strong>अस्वीकरण (Disclaimer):</strong> ज्योतिषीय गणनाएँ पारंपरिक मान्यताओं पर आधारित हैं। इन्हें निश्चित भविष्यवाणी या पेशेवर चिकित्सा, कानूनी या वित्तीय सलाह के रूप में न लें।
+                <strong>{t('footer.disclaimer', 'अस्वीकरण (Disclaimer)')}:</strong> {t('footer.disclaimerText', 'ज्योतिषीय गणनाएँ पारंपरिक मान्यताओं पर आधारित हैं। इन्हें निश्चित भविष्यवाणी या पेशेवर चिकित्सा, कानूनी या वित्तीय सलाह के रूप में न लें।')}
               </div>
 
               <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '3rem' }}>
@@ -129,7 +129,7 @@ export const KundliClient: React.FC = () => {
                   onClick={() => { setStatus('idle'); setResult(null); }}
                   style={{ padding: '0.75rem 1.5rem', background: 'transparent', color: 'var(--primary)', border: '1px solid var(--primary)', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem' }}
                 >
-                  नई कुंडली बनाएं
+                  {t('forms.createKundliBtn', 'नई कुंडली बनाएं')}
                 </button>
               </div>
             </div>

@@ -1,7 +1,7 @@
 'use client';
-
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import React, { useState } from 'react';
-import { pdf } from '@react-pdf/renderer';
+
 import { registerFonts } from '@/lib/pdf/fonts';
 
 // Ensure fonts are registered before rendering
@@ -26,11 +26,13 @@ export const PDFDownloadButton: React.FC<PDFDownloadButtonProps> = ({
 }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   const handleDownload = async () => {
     setIsGenerating(true);
     setError(null);
     try {
+      const { pdf } = await import('@react-pdf/renderer');
       const blob = await pdf(document).toBlob();
       const url = URL.createObjectURL(blob);
       const link = window.document.createElement('a');
@@ -42,7 +44,7 @@ export const PDFDownloadButton: React.FC<PDFDownloadButtonProps> = ({
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error('PDF Generation Error:', err);
-      setError('PDF तैयार नहीं हो सकी। कृपया दोबारा प्रयास करें।');
+      setError(t('common.calcError', 'PDF तैयार नहीं हो सकी। कृपया दोबारा प्रयास करें।'));
     } finally {
       setIsGenerating(false);
     }
