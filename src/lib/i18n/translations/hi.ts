@@ -11,7 +11,8 @@ export const hi = {
     createKundli: 'अपनी कुंडली बनाएं',
     lagna: 'लग्न',
     rashi: 'राशि',
-    nakshatra: 'नक्षत्र'
+    nakshatra: 'नक्षत्र',
+    brand: 'जन्मज्योति'
   },
   footer: {
     tagline: 'सरल, सत्य और सटीक भारतीय ज्योतिष',

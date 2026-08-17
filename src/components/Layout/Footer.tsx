@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
     <footer className={styles.footer}>
       <div className={`container ${styles.footerContainer}`}>
         <div className={styles.brandSection}>
-          <h2 className={`hindi-text ${styles.brandName}`}>जन्मज्योति</h2>
+          <h2 className={`hindi-text ${styles.brandName}`}>{t('nav.brand', 'जन्मज्योति')}</h2>
           <p className={styles.brandTagline}>{t('footer.tagline', 'सरल, सत्य और सटीक भारतीय ज्योतिष')}</p>
         </div>
         

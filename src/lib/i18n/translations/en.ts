@@ -8,10 +8,11 @@ export const en = {
     tools: 'Tools',
     articles: 'Articles',
     matching: 'Kundli Matching',
-    createKundli: 'Create Free Kundli',
+    createKundli: 'Create Your Kundli',
     lagna: 'Ascendant',
     rashi: 'Moon Sign',
-    nakshatra: 'Nakshatra'
+    nakshatra: 'Nakshatra',
+    brand: 'JanmJyoti'
   },
   footer: {
     tagline: 'Simple, True, and Accurate Indian Astrology',
@@ -26,7 +27,7 @@ export const en = {
     disclaimerText: 'Disclaimer: Astrology is for guidance. We do not guarantee any outcomes.'
   },
   home: {
-    heroTitleMain: 'True, Simple and Accurate',
+    heroTitleMain: 'Simple, Clear and Authentic',
     heroTitleSpan: 'Indian Astrology',
     heroDescription: 'Not just a generic horoscope. Get your personalized and accurate birth chart based on your date, time, and place of birth.',
     viewTools: 'View Other Tools',

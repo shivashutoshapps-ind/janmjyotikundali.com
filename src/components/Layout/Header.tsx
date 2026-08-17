@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
       <div className={`container ${styles.headerContainer}`}>
         <div className={styles.logo}>
           <Link href="/" onClick={closeMenu}>
-            <span className={`hindi-text ${styles.logoText}`}>जन्मज्योति</span>
+            <span className={`hindi-text ${styles.logoText}`}>{t('nav.brand', 'जन्मज्योति')}</span>
           </Link>
         </div>
         

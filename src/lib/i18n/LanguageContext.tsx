@@ -28,6 +28,12 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (mounted) {
+      document.documentElement.lang = language;
+    }
+  }, [language, mounted]);
+
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('janmjyoti_lang', lang);
