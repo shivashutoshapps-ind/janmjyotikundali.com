@@ -24,6 +24,8 @@ export const Footer: React.FC = () => {
             <Link href="/about">हमारे बारे में</Link>
             <Link href="/privacy">प्राइवेसी पॉलिसी</Link>
             <Link href="/terms">नियम व शर्तें</Link>
+            <Link href="/disclaimer">अस्वीकरण</Link>
+            <Link href="/contact">संपर्क करें</Link>
           </div>
         </div>
       </div>
