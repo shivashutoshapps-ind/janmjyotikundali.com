@@ -5,6 +5,7 @@ import { KundliForm } from '@/components/KundliForm/KundliForm';
 import { CalculationState } from '@/components/CalculationState/CalculationState';
 import { NorthIndianChart } from '@/components/KundliChart/NorthIndianChart';
 import { PlanetaryTable } from '@/components/PlanetaryTable/PlanetaryTable';
+import { DashaTree } from '@/components/DashaTree/DashaTree';
 import styles from './KundliClient.module.css';
 
 import { calculateKundliAction } from '@/app/actions/astrology';
@@ -85,31 +86,7 @@ export const KundliClient: React.FC = () => {
                 <PlanetaryTable planets={result.planets} />
               </div>
 
-              <h4 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>विंशोत्तरी महादशा (Vimshottari Mahadasha)</h4>
-              <div style={{ marginBottom: '3rem', overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '400px' }}>
-                  <thead>
-                    <tr style={{ background: 'rgba(var(--primary-rgb), 0.05)', color: 'var(--primary)' }}>
-                      <th style={{ padding: '1rem', borderBottom: '1px solid var(--border)' }}>ग्रह (Planet)</th>
-                      <th style={{ padding: '1rem', borderBottom: '1px solid var(--border)' }}>प्रारंभ (Start Date)</th>
-                      <th style={{ padding: '1rem', borderBottom: '1px solid var(--border)' }}>अंत (End Date)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {result.mahadashas.map((dasha, i) => {
-                      const start = new Date(dasha.startDate).toLocaleDateString('hi-IN', { year: 'numeric', month: 'long', day: 'numeric' });
-                      const end = new Date(dasha.endDate).toLocaleDateString('hi-IN', { year: 'numeric', month: 'long', day: 'numeric' });
-                      return (
-                        <tr key={i}>
-                          <td style={{ padding: '1rem', borderBottom: '1px solid var(--border)', fontWeight: '500' }}>{dasha.planet}</td>
-                          <td style={{ padding: '1rem', borderBottom: '1px solid var(--border)' }}>{start}</td>
-                          <td style={{ padding: '1rem', borderBottom: '1px solid var(--border)' }}>{end}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+              <DashaTree mahadashas={result.mahadashas} currentDasha={result.currentDasha} />
 
               <h4 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>दोष विश्लेषण (Dosha Analysis)</h4>
               <div style={{ marginBottom: '3rem' }}>

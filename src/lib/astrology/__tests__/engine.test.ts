@@ -1,5 +1,6 @@
 import { expect, test, describe } from 'vitest';
 import { AstronomyEngineProvider } from '../AstronomyEngineProvider';
+import { calculateVimshottariMahadasha } from '../vedic/dasha';
 import { getLahiriAyanamsa } from '../vedic/ayanamsa';
 import { AstroTime, Body, Observer } from 'astronomy-engine';
 import { convertToSidereal, normalizeLongitude } from '../vedic/sidereal';
@@ -57,6 +58,50 @@ describe('Vedic Astrology Engine Validation', () => {
     
     const norm = normalizeLongitude(365.5);
     expect(norm).toBeCloseTo(5.5, 4);
+  });
+
+  test('Mahadasha Invariants', () => {
+    // 7. Mahadasha calculation returns a valid sequence
+    const testDate = new Date('1990-01-01T12:00:00Z');
+    const moonSidereal = 15; // Ashwini (0) ends at 13.33, so Bharani (1) - Venus
+    const dashas = calculateVimshottariMahadasha(moonSidereal, testDate);
+    
+    expect(dashas.length).toBe(9);
+    expect(dashas[0].planet).toContain('Venus');
+    
+    // Check Dasha sum exactly equals Mahadasha length
+    const m = dashas[0];
+    let totalAntardashaMs = 0;
+    
+    expect(m.antardashas.length).toBe(9);
+    expect(m.antardashas[0].planet).toContain('Venus'); // First Antardasha matches Mahadasha lord
+    
+    for (const antardasha of m.antardashas) {
+      const start = new Date(antardasha.startDate).getTime();
+      const end = new Date(antardasha.endDate).getTime();
+      const duration = end - start;
+      totalAntardashaMs += duration;
+      
+      let totalPratMs = 0;
+      expect(antardasha.pratyantardashas.length).toBe(9);
+      expect(antardasha.pratyantardashas[0].planet).toContain(antardasha.planet); // First Prat matches Antardasha lord
+      
+      for (const prat of antardasha.pratyantardashas) {
+        const pStart = new Date(prat.startDate).getTime();
+        const pEnd = new Date(prat.endDate).getTime();
+        totalPratMs += (pEnd - pStart);
+      }
+      
+      // Pratyantardasha sum must equal exact Antardasha duration
+      expect(Math.abs(totalPratMs - duration)).toBeLessThanOrEqual(1); // 1ms tolerance
+    }
+    
+    // Antardasha sum must equal exact Mahadasha duration
+    const mStart = new Date(m.startDate).getTime();
+    const mEnd = new Date(m.endDate).getTime();
+    const mDuration = mEnd - mStart;
+    
+    expect(Math.abs(totalAntardashaMs - mDuration)).toBeLessThanOrEqual(1); // 1ms tolerance
   });
 
   test('Panchang Calculation', async () => {

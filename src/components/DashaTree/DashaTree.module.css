@@ -1,0 +1,119 @@
+.dashaSection {
+  margin-bottom: 3rem;
+}
+
+.currentDashaCard {
+  background-color: rgba(var(--primary-rgb), 0.05);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.currentDashaCard h5 {
+  color: var(--primary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.dashaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 639px) {
+  .dashaGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashaLevel {
+  background-color: var(--surface);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.dashaLevel small {
+  color: var(--text-light);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.dashaLevel strong {
+  font-size: 1.1rem;
+  color: var(--foreground);
+}
+
+.dashaList {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: var(--surface);
+}
+
+.mahadashaItem {
+  border-bottom: 1px solid var(--border);
+}
+
+.mahadashaItem:last-child {
+  border-bottom: none;
+}
+
+.mahadashaHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background-color: var(--background);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.mahadashaHeader:hover {
+  background-color: rgba(var(--primary-rgb), 0.05);
+}
+
+.antardashaContainer {
+  padding: 0;
+  background-color: var(--surface);
+}
+
+.antardashaItem {
+  border-top: 1px dashed var(--border);
+}
+
+.antardashaHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem 0.75rem 3rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.antardashaHeader:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.pratContainer {
+  background-color: rgba(0, 0, 0, 0.01);
+  padding: 0.5rem 0;
+}
+
+.pratItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem 0.5rem 4.5rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.dateRange {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-family: monospace;
+}

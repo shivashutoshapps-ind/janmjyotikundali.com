@@ -8,7 +8,7 @@ import { calculateNakshatra } from './vedic/nakshatra';
 import { calculateLagna } from './vedic/lagna';
 import { calculateWholeSignHouses } from './vedic/houses';
 import { calculatePanchang } from './vedic/panchang';
-import { calculateVimshottariMahadasha } from './vedic/dasha';
+import { calculateVimshottariMahadasha, getCurrentDasha } from './vedic/dasha';
 import { checkMangalDosha } from './vedic/dosha';
 import { calculatePlanetaryPositions } from './transit/transits';
 import { calculateDailyRashifal } from './transit/transitCalculator';
@@ -124,6 +124,7 @@ export class AstronomyEngineProvider implements AstrologyCalculationProvider {
 
     // Dasha Foundation
     const mahadashas = calculateVimshottariMahadasha(moonSidereal, utcDate);
+    const currentDasha = getCurrentDasha(mahadashas, new Date());
     
     // Dosha Foundation
     const mars = planets.find(p => p.planet === 'मंगल (Mars)');
@@ -140,6 +141,7 @@ export class AstronomyEngineProvider implements AstrologyCalculationProvider {
       planets,
       houses: wholeSignHouses,
       mahadashas,
+      currentDasha,
       doshas
     };
   }

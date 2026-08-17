@@ -82,10 +82,30 @@ export interface PanchangResult {
   nightChoghadiya: Choghadiya[];
 }
 
-export interface Mahadasha {
+export interface PratyantardashaPeriod {
   planet: string;
   startDate: string;
   endDate: string;
+}
+
+export interface AntardashaPeriod {
+  planet: string;
+  startDate: string;
+  endDate: string;
+  pratyantardashas: PratyantardashaPeriod[];
+}
+
+export interface MahadashaPeriod {
+  planet: string;
+  startDate: string;
+  endDate: string;
+  antardashas: AntardashaPeriod[];
+}
+
+export interface CurrentDasha {
+  mahadasha: MahadashaPeriod;
+  antardasha: AntardashaPeriod;
+  pratyantardasha: PratyantardashaPeriod;
 }
 
 export interface DoshaResult {
@@ -101,6 +121,7 @@ export interface KundliResult {
   nakshatra: NakshatraResult;
   planets: PlanetPosition[];
   houses: { houseNumber: number; sign: string; degree: number; planets: string[] }[];
-  mahadashas: Mahadasha[];
+  mahadashas: MahadashaPeriod[];
+  currentDasha: CurrentDasha | null;
   doshas: DoshaResult[];
 }
