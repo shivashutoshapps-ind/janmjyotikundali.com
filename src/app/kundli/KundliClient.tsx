@@ -6,6 +6,8 @@ import { CalculationState } from '@/components/CalculationState/CalculationState
 import { NorthIndianChart } from '@/components/KundliChart/NorthIndianChart';
 import { PlanetaryTable } from '@/components/PlanetaryTable/PlanetaryTable';
 import { DashaTree } from '@/components/DashaTree/DashaTree';
+import { PDFDownloadButton } from '@/components/PDFDownloadButton/PDFDownloadButton';
+import { KundliReport } from '@/lib/pdf/KundliReport';
 import styles from './KundliClient.module.css';
 
 import { calculateKundliAction } from '@/app/actions/astrology';
@@ -102,10 +104,15 @@ export const KundliClient: React.FC = () => {
                 <strong>अस्वीकरण (Disclaimer):</strong> ज्योतिषीय गणनाएँ पारंपरिक मान्यताओं पर आधारित हैं। इन्हें निश्चित भविष्यवाणी या पेशेवर चिकित्सा, कानूनी या वित्तीय सलाह के रूप में न लें।
               </div>
 
-              <div style={{ textAlign: 'center' }}>
+              <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '3rem' }}>
+                <PDFDownloadButton 
+                  document={<KundliReport data={result} />} 
+                  fileName={`JanmJyoti-Kundli-${result.birthData.name.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`}
+                />
+                
                 <button 
                   onClick={() => { setStatus('idle'); setResult(null); }}
-                  style={{ marginTop: '3rem', padding: '1rem 2rem', background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '1.1rem' }}
+                  style={{ padding: '0.75rem 1.5rem', background: 'transparent', color: 'var(--primary)', border: '1px solid var(--primary)', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold', fontSize: '1rem' }}
                 >
                   नई कुंडली बनाएं
                 </button>

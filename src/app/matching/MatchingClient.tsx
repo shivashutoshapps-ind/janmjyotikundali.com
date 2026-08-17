@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { KundliForm } from '@/components/KundliForm/KundliForm';
+import { PDFDownloadButton } from '@/components/PDFDownloadButton/PDFDownloadButton';
+import { MatchingReport } from '@/lib/pdf/MatchingReport';
 import { calculateMatchingAction } from '@/app/actions/astrology';
 import { BirthData } from '@/lib/astrology/types';
 import { MatchingResult } from '@/lib/astrology/matching/matchingTypes';
@@ -102,7 +104,11 @@ export function MatchingClient() {
         </>
       ) : (
         <div className={styles.resultSection}>
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            <PDFDownloadButton 
+              document={<MatchingReport data={result} />} 
+              fileName={`JanmJyoti-Matching-${result.boyData.name.replace(/[^a-zA-Z0-9]/g, '_')}-${result.girlData.name.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`}
+            />
             <button 
               onClick={() => setResult(null)}
               style={{

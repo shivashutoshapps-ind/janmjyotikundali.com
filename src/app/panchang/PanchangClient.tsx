@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { CalculationState } from '@/components/CalculationState/CalculationState';
 import { calculatePanchangAction } from '@/app/actions/astrology';
 import { PanchangResult } from '@/lib/astrology/types';
+import { PDFDownloadButton } from '@/components/PDFDownloadButton/PDFDownloadButton';
+import { PanchangReport } from '@/lib/pdf/PanchangReport';
 import styles from './PanchangClient.module.css';
 
 export const PanchangClient: React.FC = () => {
@@ -61,6 +63,12 @@ export const PanchangClient: React.FC = () => {
               <p style={{ textAlign: 'center', color: 'var(--text-light)', marginBottom: '2rem' }}>
                 {result.date} | {result.location.name}
               </p>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+                <PDFDownloadButton 
+                  document={<PanchangReport data={result} locationName={result.location.name} />} 
+                  fileName={`JanmJyoti-Panchang-${result.date.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`}
+                />
+              </div>
             </div>
 
             <div className={styles.grid2}>

@@ -1,0 +1,146 @@
+import React from 'react';
+import { Document, Page, Text, View } from '@react-pdf/renderer';
+import { PanchangResult } from '../astrology/types';
+import { pdfStyles as styles } from './styles';
+import { PDFHeader, PDFFooter, PDFDisclaimer } from './components/Common';
+
+interface PanchangReportProps {
+  data: PanchangResult;
+  locationName: string;
+}
+
+const formatDate = (isoStr: string) => {
+  return new Date(isoStr).toLocaleString('hi-IN', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
+const formatTime = (isoStr: string) => {
+  if (!isoStr) return 'N/A';
+  return new Date(isoStr).toLocaleTimeString('hi-IN', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
+export const PanchangReport: React.FC<PanchangReportProps> = ({ data, locationName }) => {
+  return (
+    <Document title={`Panchang_${data.date}`}>
+      <Page size="A4" style={styles.page}>
+        <PDFHeader title="दैनिक पंचांग (Daily Panchang)" />
+
+        <View style={styles.grid}>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>दिनांक (Date)</Text>
+            <Text style={styles.value}>{new Date(data.date).toLocaleDateString('hi-IN', { dateStyle: 'long' })}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>स्थान (Location)</Text>
+            <Text style={styles.value}>{locationName}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>वार (Day)</Text>
+            <Text style={styles.value}>{data.vara}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.sectionTitle}>पंचांग के पांच अंग (Five Limbs)</Text>
+        <View style={styles.table}>
+          <View style={[styles.tableRow, styles.tableHeader]}>
+            <Text style={styles.tableCol}>अंग</Text>
+            <Text style={styles.tableColLast}>विवरण</Text>
+          </View>
+          
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCol}>तिथि (Tithi)</Text>
+            <Text style={styles.tableColLast}>{data.tithi.name}</Text>
+          </View>
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCol}>नक्षत्र (Nakshatra)</Text>
+            <Text style={styles.tableColLast}>{data.nakshatra.nakshatra}</Text>
+          </View>
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCol}>योग (Yoga)</Text>
+            <Text style={styles.tableColLast}>{data.yoga.name}</Text>
+          </View>
+          <View style={styles.tableRow}>
+            <Text style={styles.tableCol}>करण (Karana)</Text>
+            <Text style={styles.tableColLast}>{data.karana.name}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.sectionTitle}>सूर्य और चंद्र (Sun & Moon)</Text>
+        <View style={styles.grid}>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>सूर्योदय (Sunrise)</Text>
+            <Text style={styles.value}>{formatTime(data.sunrise)}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>सूर्यास्त (Sunset)</Text>
+            <Text style={styles.value}>{formatTime(data.sunset)}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>चंद्रोदय (Moonrise)</Text>
+            <Text style={styles.value}>{formatTime(data.moonrise)}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>चंद्रास्त (Moonset)</Text>
+            <Text style={styles.value}>{formatTime(data.moonset)}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.sectionTitle}>अशुभ समय (Inauspicious Timings)</Text>
+        <View style={styles.grid}>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>राहु काल (Rahu Kaal)</Text>
+            <Text style={styles.value}>{formatTime(data.rahuKaal.start)} - {formatTime(data.rahuKaal.end)}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>यमगंड (Yamaganda)</Text>
+            <Text style={styles.value}>{formatTime(data.yamaganda.start)} - {formatTime(data.yamaganda.end)}</Text>
+          </View>
+          <View style={styles.gridItem}>
+            <Text style={styles.label}>गुलिक काल (Gulika Kaal)</Text>
+            <Text style={styles.value}>{formatTime(data.gulika.start)} - {formatTime(data.gulika.end)}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.sectionTitle}>दिन के चौघड़िया (Day Choghadiya)</Text>
+        <View style={styles.table}>
+          <View style={[styles.tableRow, styles.tableHeader]}>
+            <Text style={styles.tableCol}>नाम</Text>
+            <Text style={styles.tableColLast}>समय</Text>
+          </View>
+          {data.dayChoghadiya.map((chog, i) => (
+            <View key={i} style={styles.tableRow} wrap={false}>
+              <Text style={styles.tableCol}>{chog.name}</Text>
+              <Text style={styles.tableColLast}>{formatTime(chog.start)} - {formatTime(chog.end)}</Text>
+            </View>
+          ))}
+        </View>
+        
+        <Text style={styles.sectionTitle}>रात के चौघड़िया (Night Choghadiya)</Text>
+        <View style={styles.table}>
+          <View style={[styles.tableRow, styles.tableHeader]}>
+            <Text style={styles.tableCol}>नाम</Text>
+            <Text style={styles.tableColLast}>समय</Text>
+          </View>
+          {data.nightChoghadiya.map((chog, i) => (
+            <View key={i} style={styles.tableRow} wrap={false}>
+              <Text style={styles.tableCol}>{chog.name}</Text>
+              <Text style={styles.tableColLast}>{formatTime(chog.start)} - {formatTime(chog.end)}</Text>
+            </View>
+          ))}
+        </View>
+
+        <PDFDisclaimer />
+        <PDFFooter />
+      </Page>
+    </Document>
+  );
+};
