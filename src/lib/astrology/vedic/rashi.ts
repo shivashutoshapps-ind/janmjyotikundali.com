@@ -1,13 +1,13 @@
 import { normalizeLongitude, formatDMS } from './sidereal';
 import { RashiResult } from '../types';
 
-const RASHI_NAMES = [
+export const RASHI_NAMES = [
   'मेष (Aries)', 'वृषभ (Taurus)', 'मिथुन (Gemini)', 'कर्क (Cancer)',
   'सिंह (Leo)', 'कन्या (Virgo)', 'तुला (Libra)', 'वृश्चिक (Scorpio)',
   'धनु (Sagittarius)', 'मकर (Capricorn)', 'कुंभ (Aquarius)', 'मीन (Pisces)'
 ];
 
-const RASHI_LORDS = [
+export const RASHI_LORDS = [
   'मंगल (Mars)', 'शुक्र (Venus)', 'बुध (Mercury)', 'चंद्र (Moon)',
   'सूर्य (Sun)', 'बुध (Mercury)', 'शुक्र (Venus)', 'मंगल (Mars)',
   'गुरु (Jupiter)', 'शनि (Saturn)', 'शनि (Saturn)', 'गुरु (Jupiter)'

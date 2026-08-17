@@ -12,8 +12,10 @@ import styles from './KundliClient.module.css';
 
 import { calculateKundliAction } from '@/app/actions/astrology';
 import { KundliResult, BirthData } from '@/lib/astrology/types';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export const KundliClient: React.FC = () => {
+  const { t } = useLanguage();
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [result, setResult] = useState<KundliResult | null>(null);
 
@@ -38,9 +40,9 @@ export const KundliClient: React.FC = () => {
     <div>
       {status === 'idle' && (
         <KundliForm 
-          title="अपनी विस्तृत जन्मकुंडली बनाएं" 
-          subtitle="संपूर्ण जन्मकुंडली (Birth Chart) प्राप्त करने के लिए सही जन्म विवरण भरें।"
-          buttonText="कुंडली बनाएं"
+          title={t('tools.kundliTitle', 'अपनी विस्तृत जन्मकुंडली बनाएं')} 
+          subtitle={t('forms.createKundliSubtitle', 'संपूर्ण जन्मकुंडली (Birth Chart) प्राप्त करने के लिए सही जन्म विवरण भरें।')}
+          buttonText={t('forms.createKundliBtn', 'कुंडली बनाएं')}
           onSubmitCallback={handleCalculate}
         />
       )}
@@ -49,48 +51,48 @@ export const KundliClient: React.FC = () => {
         <div style={{ marginTop: '3rem' }}>
           <CalculationState 
             status={status} 
-            message={status === 'error' ? 'गणना में त्रुटि आई। कृपया विवरण जांचें और पुनः प्रयास करें।' : undefined} 
+            message={status === 'error' ? t('common.errorCalc', 'गणना पूरी नहीं हो सकी। कृपया दोबारा प्रयास करें।') : undefined} 
           />
           
           {status === 'success' && result && (
             <div style={{ padding: '2rem', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '8px' }}>
-              <h3 style={{ color: 'var(--primary)', fontSize: '1.5rem', marginBottom: '1rem', textAlign: 'center' }}>जन्म कुंडली विवरण</h3>
+              <h3 style={{ color: 'var(--primary)', fontSize: '1.5rem', marginBottom: '1rem', textAlign: 'center' }}>{t('kundli.chartDetails', 'जन्म कुंडली विवरण')}</h3>
               
               <div style={{ marginBottom: '2rem' }}>
-                <p><strong>नाम:</strong> {result.birthData.name}</p>
-                <p><strong>जन्म:</strong> {result.birthData.date} {result.birthData.time}</p>
-                <p><strong>स्थान:</strong> {result.birthData.place.name}</p>
+                <p><strong>{t('forms.name')}:</strong> {result.birthData.name}</p>
+                <p><strong>{t('forms.date')}:</strong> {result.birthData.date} {result.birthData.time}</p>
+                <p><strong>{t('forms.place')}:</strong> {result.birthData.place.name}</p>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
                 <div style={{ padding: '1rem', background: 'var(--background)', borderRadius: '4px', borderLeft: '4px solid var(--primary)' }}>
-                  <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>लग्न (Ascendant)</p>
+                  <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{t('astrology.lagna')}</p>
                   <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{result.lagna.lagna}</p>
                 </div>
                 <div style={{ padding: '1rem', background: 'var(--background)', borderRadius: '4px', borderLeft: '4px solid var(--primary)' }}>
-                  <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>चंद्र राशि (Moon Sign)</p>
+                  <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{t('astrology.rashi')}</p>
                   <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{result.rashi.rashi}</p>
                 </div>
                 <div style={{ padding: '1rem', background: 'var(--background)', borderRadius: '4px', borderLeft: '4px solid var(--primary)' }}>
-                  <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>नक्षत्र (Star)</p>
+                  <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{t('astrology.nakshatra')}</p>
                   <p style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{result.nakshatra.nakshatra}</p>
-                  <p style={{ fontSize: '0.85rem' }}>चरण (Pada): {result.nakshatra.pada}</p>
+                  <p style={{ fontSize: '0.85rem' }}>{t('kundli.pada', 'चरण')}: {result.nakshatra.pada}</p>
                 </div>
               </div>
 
-              <h4 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>जन्म चक्र (Birth Chart)</h4>
+              <h4 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>{t('kundli.birthChart', 'जन्म चक्र (Birth Chart)')}</h4>
               <div style={{ marginBottom: '3rem' }}>
                 <NorthIndianChart result={result} />
               </div>
 
-              <h4 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>ग्रह स्थिति (Planetary Positions)</h4>
+              <h4 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>{t('kundli.planetaryPos', 'ग्रह स्थिति (Planetary Positions)')}</h4>
               <div style={{ marginBottom: '3rem' }}>
                 <PlanetaryTable planets={result.planets} />
               </div>
 
               <DashaTree mahadashas={result.mahadashas} currentDasha={result.currentDasha} />
 
-              <h4 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>दोष विश्लेषण (Dosha Analysis)</h4>
+              <h4 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>{t('kundli.doshaAnalysis', 'दोष विश्लेषण (Dosha Analysis)')}</h4>
               <div style={{ marginBottom: '3rem' }}>
                 {result.doshas.map((dosha, i) => (
                   <div key={i} style={{ padding: '1.5rem', background: dosha.isPresent ? 'rgba(220, 38, 38, 0.05)' : 'rgba(22, 163, 74, 0.05)', borderRadius: '8px', border: `1px solid ${dosha.isPresent ? '#dc2626' : '#16a34a'}` }}>
@@ -106,7 +108,7 @@ export const KundliClient: React.FC = () => {
 
               <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '3rem' }}>
                 <PDFDownloadButton 
-                  document={<KundliReport data={result} />} 
+                  document={<KundliReport data={result} t={t} />} 
                   fileName={`JanmJyoti-Kundli-${result.birthData.name.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`}
                 />
                 

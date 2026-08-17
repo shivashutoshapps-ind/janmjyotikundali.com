@@ -3,7 +3,7 @@ import { BirthData, RashiResult, NakshatraResult, LagnaResult, KundliResult, Pan
 import { AstroTime, Body, Observer, Equator, Ecliptic } from 'astronomy-engine';
 import { getLahiriAyanamsa } from './vedic/ayanamsa';
 import { convertToSidereal } from './vedic/sidereal';
-import { calculateRashi, getRashiIndex } from './vedic/rashi';
+import { calculateRashi, getRashiIndex, RASHI_NAMES } from './vedic/rashi';
 import { calculateNakshatra } from './vedic/nakshatra';
 import { calculateLagna } from './vedic/lagna';
 import { calculateWholeSignHouses } from './vedic/houses';
@@ -159,8 +159,3 @@ export class AstronomyEngineProvider implements AstrologyCalculationProvider {
   }
 }
 
-const RASHI_NAMES = [
-  'मेष (Aries)', 'वृषभ (Taurus)', 'मिथुन (Gemini)', 'कर्क (Cancer)',
-  'सिंह (Leo)', 'कन्या (Virgo)', 'तुला (Libra)', 'वृश्चिक (Scorpio)',
-  'धनु (Sagittarius)', 'मकर (Capricorn)', 'कुंभ (Aquarius)', 'मीन (Pisces)'
-];

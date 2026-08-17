@@ -7,9 +7,11 @@ import { MatchingReport } from '@/lib/pdf/MatchingReport';
 import { calculateMatchingAction } from '@/app/actions/astrology';
 import { BirthData } from '@/lib/astrology/types';
 import { MatchingResult } from '@/lib/astrology/matching/matchingTypes';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 import styles from './MatchingClient.module.css';
 
 export function MatchingClient() {
+  const { t } = useLanguage();
   const [boyData, setBoyData] = useState<BirthData | null>(null);
   const [girlData, setGirlData] = useState<BirthData | null>(null);
   const [result, setResult] = useState<MatchingResult | null>(null);
@@ -30,10 +32,10 @@ export function MatchingClient() {
       if (matchResult) {
         setResult(matchResult);
       } else {
-        setError('मिलान की गणना करने में विफल।');
+        setError(t('common.calcError', 'गणना पूरी नहीं हो सकी। कृपया दोबारा प्रयास करें।'));
       }
     } catch (e) {
-      setError('सर्वर त्रुटि। कृपया पुनः प्रयास करें।');
+      setError(t('common.errorCalc', 'गणना पूरी नहीं हो सकी। कृपया दोबारा प्रयास करें।'));
     } finally {
       setIsLoading(false);
     }
@@ -61,23 +63,23 @@ export function MatchingClient() {
         <>
           <div className={styles.formsGrid}>
             <div className={styles.formCard}>
-              <h3>वर (Boy) का विवरण</h3>
+              <h3>{t('matching.boy', 'वर (Boy)')} {t('common.details', 'का विवरण')}</h3>
               <KundliForm 
                 onSubmitCallback={(data) => {
                   setBoyData(data);
                   if (girlData) setError('');
                 }} 
-                buttonText={boyData ? "वर का विवरण सहेजा गया ✓" : "सहेजें"}
+                buttonText={boyData ? `✓` : t('common.submit', 'सहेजें')}
               />
             </div>
             <div className={styles.formCard}>
-              <h3>वधू (Girl) का विवरण</h3>
+              <h3>{t('matching.girl', 'वधू (Girl)')} {t('common.details', 'का विवरण')}</h3>
               <KundliForm 
                 onSubmitCallback={(data) => {
                   setGirlData(data);
                   if (boyData) setError('');
                 }} 
-                buttonText={girlData ? "वधू का विवरण सहेजा गया ✓" : "सहेजें"}
+                buttonText={girlData ? `✓` : t('common.submit', 'सहेजें')}
               />
             </div>
           </div>
@@ -98,7 +100,7 @@ export function MatchingClient() {
                 cursor: (isLoading || !boyData || !girlData) ? 'not-allowed' : 'pointer'
               }}
             >
-              {isLoading ? 'गणना हो रही है...' : 'कुंडली मिलान करें (Calculate Match)'}
+              {isLoading ? t('common.loading', 'गणना हो रही है...') : t('forms.matchBtn', 'कुंडली मिलान करें')}
             </button>
           </div>
         </>
@@ -106,7 +108,7 @@ export function MatchingClient() {
         <div className={styles.resultSection}>
           <div style={{ textAlign: 'center', marginBottom: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <PDFDownloadButton 
-              document={<MatchingReport data={result} />} 
+              document={<MatchingReport data={result} t={t} />} 
               fileName={`JanmJyoti-Matching-${result.boyData.name.replace(/[^a-zA-Z0-9]/g, '_')}-${result.girlData.name.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`}
             />
             <button 
@@ -120,35 +122,35 @@ export function MatchingClient() {
                 cursor: 'pointer'
               }}
             >
-              ← नया मिलान करें (New Match)
+              ← {t('common.back', 'नया मिलान करें')}
             </button>
           </div>
 
           <div className={styles.scoreBanner}>
             <h2>{result.totalScore} / 36</h2>
-            <p>गुण मिले (Guna Matched)</p>
+            <p>{t('matching.totalScore', 'गुण मिले')}</p>
             <div className={styles.interpretation}>{result.interpretation}</div>
           </div>
 
           <div className={styles.infoGrid}>
             <div className={styles.infoCard}>
-              <h4>वर (Boy)</h4>
-              <p>राशि: {result.boyRashi.rashi}</p>
-              <p>नक्षत्र: {result.boyNakshatra.nakshatra} (चरण {result.boyNakshatra.pada})</p>
+              <h4>{t('matching.boy', 'वर')}</h4>
+              <p>{t('astrology.rashi')}: {result.boyRashi.rashi}</p>
+              <p>{t('astrology.nakshatra')}: {result.boyNakshatra.nakshatra} ({t('kundli.pada')} {result.boyNakshatra.pada})</p>
               {result.boyDoshas.length > 0 ? (
-                <div className={styles.doshaWarning}>मांगलिक दोष उपस्थित है</div>
+                <div className={styles.doshaWarning}>{t('matching.manglikYes', 'मांगलिक दोष उपस्थित है')}</div>
               ) : (
-                <div className={styles.doshaClear}>मांगलिक दोष नहीं है</div>
+                <div className={styles.doshaClear}>{t('matching.manglikNo', 'मांगलिक दोष नहीं है')}</div>
               )}
             </div>
             <div className={styles.infoCard}>
-              <h4>वधू (Girl)</h4>
-              <p>राशि: {result.girlRashi.rashi}</p>
-              <p>नक्षत्र: {result.girlNakshatra.nakshatra} (चरण {result.girlNakshatra.pada})</p>
+              <h4>{t('matching.girl', 'वधू')}</h4>
+              <p>{t('astrology.rashi')}: {result.girlRashi.rashi}</p>
+              <p>{t('astrology.nakshatra')}: {result.girlNakshatra.nakshatra} ({t('kundli.pada')} {result.girlNakshatra.pada})</p>
               {result.girlDoshas.length > 0 ? (
-                <div className={styles.doshaWarning}>मांगलिक दोष उपस्थित है</div>
+                <div className={styles.doshaWarning}>{t('matching.manglikYes', 'मांगलिक दोष उपस्थित है')}</div>
               ) : (
-                <div className={styles.doshaClear}>मांगलिक दोष नहीं है</div>
+                <div className={styles.doshaClear}>{t('matching.manglikNo', 'मांगलिक दोष नहीं है')}</div>
               )}
             </div>
           </div>
@@ -156,10 +158,10 @@ export function MatchingClient() {
           <table className={styles.kootTable}>
             <thead>
               <tr>
-                <th>कूट (Koot)</th>
-                <th style={{textAlign: 'center'}}>अधिकतम अंक (Max)</th>
-                <th style={{textAlign: 'center'}}>प्राप्त अंक (Obtained)</th>
-                <th>विवरण (Explanation)</th>
+                <th>{t('matching.koot', 'कूट (Koot)')}</th>
+                <th style={{textAlign: 'center'}}>{t('common.max', 'अधिकतम अंक (Max)')}</th>
+                <th style={{textAlign: 'center'}}>{t('common.score', 'प्राप्त अंक (Obtained)')}</th>
+                <th>{t('common.details', 'विवरण (Explanation)')}</th>
               </tr>
             </thead>
             <tbody>
@@ -175,7 +177,7 @@ export function MatchingClient() {
           </table>
 
           <div className={styles.disclaimer}>
-            <strong>अस्वीकरण:</strong> यह अष्टकूट गुण मिलान पारंपरिक वैदिक ज्योतिष नियमों पर आधारित है। इसे पूर्ण अंतिम निर्णय न मानें। विवाह जैसे महत्वपूर्ण निर्णय के लिए विद्वान ज्योतिषी से दोनों कुंडलियों (ग्रह दृष्टि, दशा, और नवमांश) का संपूर्ण विश्लेषण अवश्य करवाएं।
+            <strong>{t('footer.disclaimer', 'अस्वीकरण')}:</strong> {t('rashifal.disclaimer', 'यह अष्टकूट गुण मिलान पारंपरिक वैदिक ज्योतिष नियमों पर आधारित है। इसे पूर्ण अंतिम निर्णय न मानें।')}
           </div>
         </div>
       )}

@@ -6,7 +6,10 @@ import { CalculationState } from '@/components/CalculationState/CalculationState
 
 import { calculateRashiAction } from '@/app/actions/astrology';
 import { RashiResult, BirthData } from '@/lib/astrology/types';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+
 export const RashiClient: React.FC = () => {
+  const { t } = useLanguage();
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [result, setResult] = useState<RashiResult | null>(null);
 
@@ -39,7 +42,7 @@ export const RashiClient: React.FC = () => {
       <div style={{ marginTop: '3rem' }}>
         <CalculationState 
           status={status} 
-          message={status === 'error' ? 'गणना में त्रुटि आई। कृपया विवरण जांचें और पुनः प्रयास करें।' : undefined} 
+          message={status === 'error' ? t('common.errorCalc', 'गणना पूरी नहीं हो सकी। कृपया दोबारा प्रयास करें।') : undefined} 
         />
         
         {status === 'success' && result && (

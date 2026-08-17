@@ -3,6 +3,8 @@
 import React from 'react';
 import { Input } from '../Form/Input';
 import { Button } from '../Button/Button';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+import { useRouter } from 'next/navigation';
 import styles from './KundliForm.module.css';
 
 interface KundliFormProps {
@@ -14,10 +16,12 @@ interface KundliFormProps {
 
 export const KundliForm: React.FC<KundliFormProps> = ({ 
   onSubmitCallback,
-  title = "अपनी जन्मकुंडली बनाएं",
-  subtitle = "सटीक फलादेश के लिए सही जन्म विवरण भरें",
-  buttonText = "कुंडली बनाएं (Free)"
+  title,
+  subtitle,
+  buttonText
 }) => {
+  const { t } = useLanguage();
+  const router = useRouter();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
@@ -37,50 +41,56 @@ export const KundliForm: React.FC<KundliFormProps> = ({
     if (onSubmitCallback) {
       onSubmitCallback(data);
     } else {
-      alert('फॉर्म सबमिट किया गया! (गणना इंजन अभी उपलब्ध नहीं है)');
+      const query = new URLSearchParams({
+        name: data.name,
+        date: data.date,
+        time: data.time,
+        place: data.place.name
+      }).toString();
+      router.push(`/kundli?${query}`);
     }
   };
 
   return (
     <form className={styles.formContainer} onSubmit={handleSubmit}>
-      <h2 className={`hindi-text ${styles.formTitle}`}>{title}</h2>
-      <p className={styles.formSubtitle}>{subtitle}</p>
+      <h2 className={`hindi-text ${styles.formTitle}`}>{title || t('forms.createKundliTitle')}</h2>
+      <p className={styles.formSubtitle}>{subtitle || t('forms.createKundliSubtitle')}</p>
 
       <div className={styles.inputGrid}>
         <Input 
           name="name"
-          label="पूरा नाम" 
-          placeholder="उदा. राहुल कुमार" 
+          label={t('forms.name')} 
+          placeholder={t('forms.namePlaceholder')} 
           required 
         />
         <Input 
           name="date"
-          label="जन्म तिथि" 
+          label={t('forms.date')} 
           type="date" 
           required 
         />
         <Input 
           name="time"
-          label="जन्म समय" 
+          label={t('forms.time')} 
           type="time" 
           required 
         />
         <Input 
           name="place"
-          label="जन्म स्थान" 
-          placeholder="उदा. नई दिल्ली" 
+          label={t('forms.place')} 
+          placeholder={t('forms.placePlaceholder')} 
           required 
         />
       </div>
 
       <div className={styles.actionContainer}>
         <Button type="submit" variant="primary" fullWidth className={styles.submitBtn}>
-          {buttonText}
+          {buttonText || t('forms.createKundliBtn')}
         </Button>
       </div>
       
       <p className={styles.privacyNote}>
-        🔒 आपका डेटा सुरक्षित है और इसे किसी के साथ साझा नहीं किया जाएगा।
+        {t('forms.privacyNote')}
       </p>
     </form>
   );

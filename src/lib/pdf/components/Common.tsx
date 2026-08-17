@@ -4,16 +4,17 @@ import { pdfStyles as styles } from '../styles';
 
 interface PDFHeaderProps {
   title: string;
+  t?: (key: string, fallback?: string) => string;
 }
 
-export const PDFHeader: React.FC<PDFHeaderProps> = ({ title }) => (
+export const PDFHeader: React.FC<PDFHeaderProps> = ({ title, t }) => (
   <View style={styles.header}>
     <View>
       <Text style={styles.headerTitle}>{title}</Text>
       <Text style={styles.headerSubtitle}>जन्मज्योति (JanmJyotiKundali.com)</Text>
     </View>
     <View>
-      <Text style={styles.headerSubtitle}>आपकी जन्मकुंडली, आपके ग्रह, आपकी दिशा।</Text>
+      <Text style={styles.headerSubtitle}>{t ? t('hero.subtitle', 'आपकी जन्मकुंडली, आपके ग्रह, आपकी दिशा।') : 'आपकी जन्मकुंडली, आपके ग्रह, आपकी दिशा।'}</Text>
     </View>
   </View>
 );
@@ -26,10 +27,10 @@ export const PDFFooter: React.FC = () => (
   </View>
 );
 
-export const PDFDisclaimer: React.FC = () => (
+export const PDFDisclaimer: React.FC<{ t?: (key: string, fallback?: string) => string }> = ({ t }) => (
   <View style={styles.disclaimer} wrap={false}>
     <Text>
-      यह रिपोर्ट पारंपरिक वैदिक ज्योतिषीय गणना पर आधारित है। इसे चिकित्सा, कानूनी, वित्तीय या अन्य पेशेवर सलाह का विकल्प नहीं माना जाना चाहिए।
+      {t ? t('footer.disclaimerText', 'यह रिपोर्ट पारंपरिक वैदिक ज्योतिषीय गणना पर आधारित है। इसे चिकित्सा, कानूनी, वित्तीय या अन्य पेशेवर सलाह का विकल्प नहीं माना जाना चाहिए।') : 'यह रिपोर्ट पारंपरिक वैदिक ज्योतिषीय गणना पर आधारित है। इसे चिकित्सा, कानूनी, वित्तीय या अन्य पेशेवर सलाह का विकल्प नहीं माना जाना चाहिए।'}
     </Text>
   </View>
 );

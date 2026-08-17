@@ -1,48 +1,11 @@
-import { Metadata } from 'next';
-import styles from '../legal.module.css';
+﻿import { Metadata } from 'next';
+import DisclaimerClient from './DisclaimerClient';
 
 export const metadata: Metadata = {
   title: 'अस्वीकरण (Disclaimer)',
-  description: 'JanmJyotiKundali.com का अस्वीकरण और वैधानिक चेतावनी।',
+  description: 'JanmJyotiKundali.com के उपयोग के संबंध में महत्वपूर्ण अस्वीकरण।',
 };
 
 export default function DisclaimerPage() {
-  return (
-    <main className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>अस्वीकरण (Disclaimer)</h1>
-      </div>
-      <div className={styles.content}>
-        <h2>ज्योतिषीय गणनाएं (Astrological Calculations)</h2>
-        <p>
-          JanmJyotiKundali.com पर उपलब्ध सभी ज्योतिषीय गणनाएं (जैसे कुंडली, पंचांग, अष्टकूट मिलान, दशा आदि) 
-          प्राचीन वैदिक ज्योतिष सिद्धांतों और खगोलीय सूत्रों पर आधारित हैं। हम गणितीय सटीकता 
-          (जैसे स्विस एफेमेरिस के माध्यम से ग्रहों की स्थिति) सुनिश्चित करने का पूरा प्रयास करते हैं, 
-          लेकिन हम किसी भी भविष्यवाणी के 100% सटीक होने का दावा नहीं करते हैं।
-        </p>
-        
-        <h2>मार्गदर्शन (Guidance Only)</h2>
-        <p>
-          ज्योतिष को केवल एक मार्गदर्शन (Guidance) माना जाना चाहिए, न कि किसी भी कार्य के लिए पूर्ण 
-          अंतिम निर्णय। हमारी वेबसाइट पर प्रस्तुत जानकारी पेशेवर, वित्तीय, चिकित्सा, या कानूनी सलाह 
-          का विकल्प नहीं है।
-        </p>
-
-        <h2>व्यक्तिगत उत्तरदायित्व (Personal Responsibility)</h2>
-        <p>
-          विवाह, करियर, स्वास्थ्य, या वित्त से संबंधित किसी भी महत्वपूर्ण निर्णय को केवल इस वेबसाइट पर 
-          दी गई कुण्डली या मिलान के आधार पर नहीं लिया जाना चाहिए। हम उपयोगकर्ताओं को सलाह देते हैं कि 
-          वे महत्वपूर्ण निर्णयों के लिए प्रमाणित पेशेवरों और योग्य ज्योतिषियों से व्यक्तिगत रूप से 
-          परामर्श लें।
-        </p>
-
-        <h2>कोई गारंटी नहीं (No Guarantees)</h2>
-        <p>
-          JanmJyotiKundali.com किसी भी प्रकार की "निश्चित सफलता", "गारंटीकृत उपाय", या भविष्य 
-          की निश्चित घटनाओं का कोई दावा या गारंटी नहीं देता है। वेबसाइट के उपयोग से उत्पन्न होने वाले 
-          किसी भी परिणाम के लिए उपयोगकर्ता स्वयं जिम्मेदार हैं।
-        </p>
-      </div>
-    </main>
-  );
+  return <DisclaimerClient />;
 }

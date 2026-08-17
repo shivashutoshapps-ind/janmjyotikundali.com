@@ -107,3 +107,45 @@
     display: none;
   }
 }
+
+.languageSwitcher {
+  display: flex;
+  align-items: center;
+  background-color: var(--background);
+  border-radius: 20px;
+  padding: 3px;
+  border: 1px solid var(--border);
+}
+.langBtn {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  transition: all 0.2s ease;
+}
+.langActive {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.langInactive {
+  color: #6b7280;
+}
+.langInactive:hover {
+  color: var(--primary);
+}
+.mobileLanguageSwitcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  border-radius: 20px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  margin: 1rem auto;
+  width: fit-content;
+}

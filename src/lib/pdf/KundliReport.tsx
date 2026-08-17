@@ -6,6 +6,7 @@ import { PDFHeader, PDFFooter, PDFDisclaimer } from './components/Common';
 
 interface KundliReportProps {
   data: KundliResult;
+  t: (key: string, fallback?: string) => string;
 }
 
 const RASHI_NAMES = [
@@ -77,23 +78,23 @@ const NorthIndianChartPDF = ({ result }: { result: KundliResult }) => {
   );
 };
 
-export const KundliReport: React.FC<KundliReportProps> = ({ data }) => {
+export const KundliReport: React.FC<KundliReportProps> = ({ data, t }) => {
   return (
     <Document title={`Kundli_${data.birthData.name}`}>
       <Page size="A4" style={styles.page}>
-        <PDFHeader title="जन्म कुंडली (Birth Chart)" />
+        <PDFHeader title={t('tools.kundliTitle', 'जन्म कुंडली')} t={t} />
         
         <View style={styles.grid}>
           <View style={styles.gridItem}>
-            <Text style={styles.label}>नाम (Name)</Text>
+            <Text style={styles.label}>{t('common.name', 'नाम (Name)')}</Text>
             <Text style={styles.value}>{data.birthData.name}</Text>
           </View>
           <View style={styles.gridItem}>
-            <Text style={styles.label}>जन्म स्थान (Birth Place)</Text>
+            <Text style={styles.label}>{t('common.place', 'जन्म स्थान (Birth Place)')}</Text>
             <Text style={styles.value}>{data.birthData.place.name}</Text>
           </View>
           <View style={styles.gridItem}>
-            <Text style={styles.label}>दिनांक (Date)</Text>
+            <Text style={styles.label}>{t('common.date', 'दिनांक (Date)')}</Text>
             <Text style={styles.value}>{data.birthData.date}</Text>
           </View>
           <View style={styles.gridItem}>
@@ -177,7 +178,7 @@ export const KundliReport: React.FC<KundliReportProps> = ({ data }) => {
           ))}
         </View>
         
-        <PDFDisclaimer />
+        <PDFDisclaimer t={t} />
         <PDFFooter />
       </Page>
     </Document>
