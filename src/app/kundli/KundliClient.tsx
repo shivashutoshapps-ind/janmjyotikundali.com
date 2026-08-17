@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { KundliForm } from '@/components/KundliForm/KundliForm';
 import { CalculationState } from '@/components/CalculationState/CalculationState';
 import { NorthIndianChart } from '@/components/KundliChart/NorthIndianChart';
@@ -18,6 +18,19 @@ export const KundliClient: React.FC = () => {
   const { t } = useLanguage();
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [result, setResult] = useState<KundliResult | null>(null);
+
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('janmjyoti_kundli_data');
+    if (storedData) {
+      try {
+        const data = JSON.parse(storedData) as BirthData;
+        sessionStorage.removeItem('janmjyoti_kundli_data'); // clear after use
+        handleCalculate(data);
+      } catch (e) {
+        console.error('Failed to parse kundli data from storage', e);
+      }
+    }
+  }, []);
 
   const handleCalculate = async (data: BirthData) => {
     setStatus('loading');

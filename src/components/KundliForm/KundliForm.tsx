@@ -41,13 +41,8 @@ export const KundliForm: React.FC<KundliFormProps> = ({
     if (onSubmitCallback) {
       onSubmitCallback(data);
     } else {
-      const query = new URLSearchParams({
-        name: data.name,
-        date: data.date,
-        time: data.time,
-        place: data.place.name
-      }).toString();
-      router.push(`/kundli?${query}`);
+      sessionStorage.setItem('janmjyoti_kundli_data', JSON.stringify(data));
+      router.push(`/kundli`);
     }
   };
 
