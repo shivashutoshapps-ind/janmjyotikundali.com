@@ -59,6 +59,18 @@ export default function RootLayout({
           {children}
           <Footer />
         </LanguageProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "JanmJyoti",
+              "url": "https://janmjyotikundali.com",
+              "description": "JanmJyoti provides trustworthy Indian astrology, daily Rashifal, free personalized Kundli, Panchang, and astrology tools in Hindi."
+            })
+          }}
+        />
       </body>
     </html>
   );

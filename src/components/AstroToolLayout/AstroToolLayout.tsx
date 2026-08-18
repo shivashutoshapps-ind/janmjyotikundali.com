@@ -29,6 +29,24 @@ export const AstroToolLayout: React.FC<AstroToolLayoutProps> = ({ title, descrip
         <div className={styles.disclaimerWrapper}>
           <ToolDisclaimer />
         </div>
+        
+        {breadcrumbs && breadcrumbs.length > 0 && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": breadcrumbs.map((crumb, index) => ({
+                  "@type": "ListItem",
+                  "position": index + 1,
+                  "name": crumb.label,
+                  "item": crumb.href ? `https://janmjyotikundali.com${crumb.href}` : undefined
+                }))
+              })
+            }}
+          />
+        )}
       </div>
     </main>
   );
