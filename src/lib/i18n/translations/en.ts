@@ -12,7 +12,17 @@ export const en = {
     lagna: 'Ascendant',
     rashi: 'Moon Sign',
     nakshatra: 'Nakshatra',
+    graha: 'Planets',
+    dosha: 'Dosha',
+    bhava: 'Houses',
     brand: 'JanmJyoti'
+  },
+  bhava: {
+    hubTitle: '12 Houses of Kundli',
+    hubSubtitle: 'Understand the meaning and significance of the 12 houses in Vedic Astrology.',
+    readMore: 'Read more about',
+    significance: 'Significance',
+    bodyParts: 'Body Parts'
   },
   footer: {
     tagline: 'Simple, True, and Accurate Indian Astrology',

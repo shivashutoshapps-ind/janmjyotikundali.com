@@ -10,9 +10,19 @@ export const hi = {
     matching: 'कुण्डली मिलान',
     createKundli: 'अपनी कुंडली बनाएं',
     lagna: 'लग्न',
-    rashi: 'राशि',
+    rashi: 'चंद्र राशि',
     nakshatra: 'नक्षत्र',
+    graha: 'ग्रह',
+    dosha: 'दोष',
+    bhava: 'भाव',
     brand: 'जन्मज्योति'
+  },
+  bhava: {
+    hubTitle: 'कुंडली के 12 भाव',
+    hubSubtitle: 'वैदिक ज्योतिष में जन्म कुंडली के 12 भावों और उनके अर्थ के बारे में जानें।',
+    readMore: 'इसके बारे में और पढ़ें',
+    significance: 'महत्व',
+    bodyParts: 'शरीर के अंग'
   },
   footer: {
     tagline: 'सरल, सत्य और सटीक भारतीय ज्योतिष',

@@ -1,0 +1,90 @@
+.main {
+  padding: 4rem 0;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.houseNumberBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.bhavaName {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+  padding-right: 3rem; /* Make room for badge */
+}
+
+.sanskritName {
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.significance {
+  font-size: 1rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { KundliResult } from '@/lib/astrology/types';
 import styles from './KundliChart.module.css';
 
@@ -40,6 +41,13 @@ export const NorthIndianChart: React.FC<Props> = ({ result }) => {
     return index >= 0 ? index + 1 : '';
   };
 
+  const getOrdinal = (n: number) => {
+    if (n === 1) return '1st';
+    if (n === 2) return '2nd';
+    if (n === 3) return '3rd';
+    return `${n}th`;
+  };
+
   const renderHouse = (pos: {h: number, x: number, y: number}) => {
     const houseData = result.houses.find(h => h.houseNumber === pos.h);
     if (!houseData) return null;
@@ -62,16 +70,22 @@ export const NorthIndianChart: React.FC<Props> = ({ result }) => {
     const planetText = houseData.planets.map(p => shortNames[p] || p).join(', ');
 
     return (
-      <g key={pos.h} className={styles.houseGroup}>
-        {/* Sign Number */}
-        <text x={pos.x} y={pos.y - 15} className={styles.signNumber} textAnchor="middle">
-          {signNum}
-        </text>
-        {/* Planets */}
-        <text x={pos.x} y={pos.y + 5} className={styles.planetsText} textAnchor="middle">
-          {planetText}
-        </text>
-      </g>
+      <Link href={`/bhava/${getOrdinal(pos.h)}-house`} key={pos.h} passHref legacyBehavior>
+        <a className={styles.houseLink} aria-label={`View details for ${getOrdinal(pos.h)} house`}>
+          <g className={styles.houseGroup}>
+            {/* Sign Number */}
+            <text x={pos.x} y={pos.y - 15} className={styles.signNumber} textAnchor="middle">
+              {signNum}
+            </text>
+            {/* Planets */}
+            <text x={pos.x} y={pos.y + 5} className={styles.planetsText} textAnchor="middle">
+              {planetText}
+            </text>
+            {/* Hit area (transparent circle for better clicking) */}
+            <circle cx={pos.x} cy={pos.y - 5} r="25" fill="transparent" />
+          </g>
+        </a>
+      </Link>
     );
   };
 

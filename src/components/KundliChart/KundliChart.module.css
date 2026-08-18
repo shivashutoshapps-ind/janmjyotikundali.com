@@ -19,7 +19,13 @@
 }
 
 .houseGroup {
-  /* Group styles */
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.houseGroup:hover .signNumber,
+.houseGroup:hover .planetsText {
+  fill: var(--primary);
 }
 
 .signNumber {
