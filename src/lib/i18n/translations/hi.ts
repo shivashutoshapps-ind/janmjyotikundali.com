@@ -15,7 +15,19 @@ export const hi = {
     graha: 'ग्रह',
     dosha: 'दोष',
     bhava: 'भाव',
+    dasha: 'महादशा',
     brand: 'जन्मज्योति'
+  },
+  dasha: {
+    hubTitle: 'विंशोत्तरी महादशा',
+    hubSubtitle: 'वैदिक ज्योतिष में 9 ग्रहों की महादशाओं के प्रभाव और उनके उपाय जानें।',
+    readMore: 'इसके बारे में और पढ़ें',
+    duration: 'अवधि',
+    generalEffects: 'सामान्य प्रभाव',
+    careerFinance: 'करियर और धन',
+    relationshipsFamily: 'रिश्ते और परिवार',
+    psychologicalChanges: 'मानसिक परिवर्तन',
+    remedies: 'उपाय'
   },
   bhava: {
     hubTitle: 'कुंडली के 12 भाव',

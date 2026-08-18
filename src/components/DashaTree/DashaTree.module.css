@@ -109,7 +109,29 @@
   justify-content: space-between;
   padding: 0.5rem 1.5rem 0.5rem 4.5rem;
   font-size: 0.9rem;
-  color: var(--text-light);
+  color: var(--text-muted);
+}
+
+.dashaLink {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.dashaLink:hover {
+  text-decoration: underline;
+  color: var(--primary-dark);
+}
+
+.dashaLinkInline {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 4px;
+}
+
+.dashaLinkInline:hover {
+  text-decoration: underline;
 }
 
 .dateRange {

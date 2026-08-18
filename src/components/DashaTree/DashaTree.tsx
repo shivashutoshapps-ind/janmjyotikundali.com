@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { MahadashaPeriod, CurrentDasha } from '@/lib/astrology/types';
 import styles from './DashaTree.module.css';
 
@@ -12,6 +13,21 @@ interface DashaTreeProps {
 const formatDate = (isoString: string) => {
   const d = new Date(isoString);
   return d.toLocaleDateString('hi-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+};
+
+const getDashaSlug = (planetName: string) => {
+  const map: Record<string, string> = {
+    'सूर्य (Sun)': 'surya',
+    'चंद्र (Moon)': 'chandra',
+    'मंगल (Mars)': 'mangal',
+    'राहु (Rahu)': 'rahu',
+    'गुरु (Jupiter)': 'guru',
+    'शनि (Saturn)': 'shani',
+    'बुध (Mercury)': 'budh',
+    'केतु (Ketu)': 'ketu',
+    'शुक्र (Venus)': 'shukra'
+  };
+  return map[planetName] || '';
 };
 
 export const DashaTree: React.FC<DashaTreeProps> = ({ mahadashas, currentDasha }) => {
@@ -46,7 +62,9 @@ export const DashaTree: React.FC<DashaTreeProps> = ({ mahadashas, currentDasha }
           <div className={styles.dashaGrid}>
             <div className={styles.dashaLevel}>
               <small>महादशा (Mahadasha)</small>
-              <strong>{currentDasha.mahadasha.planet}</strong>
+              <Link href={`/dasha/${getDashaSlug(currentDasha.mahadasha.planet)}`} className={styles.dashaLink}>
+                <strong>{currentDasha.mahadasha.planet}</strong>
+              </Link>
             </div>
             <div className={styles.dashaLevel}>
               <small>अंतरदशा (Antardasha)</small>
@@ -74,7 +92,12 @@ export const DashaTree: React.FC<DashaTreeProps> = ({ mahadashas, currentDasha }
               className={styles.mahadashaHeader}
               onClick={() => toggleMahadasha(mIndex)}
             >
-              <span>{expandedMahadasha === mIndex ? '▼' : '▶'} {mahadasha.planet} महादशा</span>
+              <span>
+                {expandedMahadasha === mIndex ? '▼' : '▶'} 
+                <Link href={`/dasha/${getDashaSlug(mahadasha.planet)}`} onClick={(e) => e.stopPropagation()} className={styles.dashaLinkInline}>
+                  {mahadasha.planet}
+                </Link> महादशा
+              </span>
               <span className={styles.dateRange}>
                 {formatDate(mahadasha.startDate)} - {formatDate(mahadasha.endDate)}
               </span>

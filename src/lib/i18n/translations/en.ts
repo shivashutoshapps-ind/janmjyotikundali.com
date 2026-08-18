@@ -15,7 +15,19 @@ export const en = {
     graha: 'Planets',
     dosha: 'Dosha',
     bhava: 'Houses',
+    dasha: 'Mahadasha',
     brand: 'JanmJyoti'
+  },
+  dasha: {
+    hubTitle: 'Vimshottari Mahadasha',
+    hubSubtitle: 'Understand the effects and remedies of the 9 planetary periods in Vedic Astrology.',
+    readMore: 'Read more about',
+    duration: 'Duration',
+    generalEffects: 'General Effects',
+    careerFinance: 'Career & Finance',
+    relationshipsFamily: 'Relationships & Family',
+    psychologicalChanges: 'Psychological Changes',
+    remedies: 'Remedies'
   },
   bhava: {
     hubTitle: '12 Houses of Kundli',
