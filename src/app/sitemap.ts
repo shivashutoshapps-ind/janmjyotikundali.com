@@ -6,6 +6,7 @@ import { grahaData } from '@/data/content/graha';
 import { doshaData } from '@/data/content/dosha';
 import { bhavaData } from '@/data/content/bhava';
 import { dashaData } from '@/data/content/dasha';
+import { yogaData } from '@/data/content/yoga';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://janmjyotikundali.com';
 
@@ -61,6 +62,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const dashaSlugs = Object.keys(dashaData);
   const dashaRoutes = dashaSlugs.map((slug) => ({
     url: `${baseUrl}/dasha/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
+  const yogaSlugs = Object.keys(yogaData);
+  const yogaRoutes = yogaSlugs.map((slug) => ({
+    url: `${baseUrl}/yoga/${slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
@@ -147,6 +156,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/yoga`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -177,6 +192,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...doshaRoutes,
     ...bhavaRoutes,
     ...dashaRoutes,
+    ...yogaRoutes,
     ...rashifalRoutes,
   ];
 }

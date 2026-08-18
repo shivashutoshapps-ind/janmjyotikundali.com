@@ -16,7 +16,17 @@ export const en = {
     dosha: 'Dosha',
     bhava: 'Houses',
     dasha: 'Mahadasha',
+    yoga: 'Yogas',
     brand: 'JanmJyoti'
+  },
+  yoga: {
+    hubTitle: 'Vedic Astrology Yogas',
+    hubSubtitle: 'Understand the formation, significance, and limitations of major planetary combinations (Yogas) in a Kundli.',
+    readMore: 'Read more about',
+    formation: 'Formation',
+    significance: 'Significance & Effects',
+    traditionalInterpretation: 'Traditional Interpretation',
+    limitations: 'Important Limitations (Caveats)'
   },
   dasha: {
     hubTitle: 'Vimshottari Mahadasha',

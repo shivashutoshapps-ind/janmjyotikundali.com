@@ -16,7 +16,17 @@ export const hi = {
     dosha: 'दोष',
     bhava: 'भाव',
     dasha: 'महादशा',
+    yoga: 'योग',
     brand: 'जन्मज्योति'
+  },
+  yoga: {
+    hubTitle: 'वैदिक ज्योतिष योग',
+    hubSubtitle: 'कुंडली में प्रमुख ग्रह संयोजनों (योगों) के निर्माण, अर्थ और महत्वपूर्ण सीमाओं (Caveats) को समझें।',
+    readMore: 'इसके बारे में और पढ़ें',
+    formation: 'निर्माण (Formation)',
+    significance: 'महत्व और प्रभाव',
+    traditionalInterpretation: 'पारंपरिक दृष्टिकोण',
+    limitations: 'महत्वपूर्ण सीमाएं (Caveats)'
   },
   dasha: {
     hubTitle: 'विंशोत्तरी महादशा',
