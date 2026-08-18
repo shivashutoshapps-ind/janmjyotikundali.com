@@ -2,9 +2,24 @@ import React from 'react';
 import { PlanetPosition } from '@/lib/astrology/types';
 import styles from './PlanetaryTable.module.css';
 
+import Link from 'next/link';
+
 interface Props {
   planets: PlanetPosition[];
 }
+
+// Mapping of planet names to slugs
+const GRAHA_SLUG_MAP: Record<string, string> = {
+  'सूर्य (Sun)': 'surya',
+  'चंद्र (Moon)': 'chandra',
+  'मंगल (Mars)': 'mangal',
+  'बुध (Mercury)': 'budh',
+  'गुरु (Jupiter)': 'guru',
+  'शुक्र (Venus)': 'shukra',
+  'शनि (Saturn)': 'shani',
+  'राहु (Rahu)': 'rahu',
+  'केतु (Ketu)': 'ketu'
+};
 
 export const PlanetaryTable: React.FC<Props> = ({ planets }) => {
   // Format degree like "14° 23'"
@@ -29,15 +44,26 @@ export const PlanetaryTable: React.FC<Props> = ({ planets }) => {
           </tr>
         </thead>
         <tbody>
-          {planets.map((p, idx) => (
-            <tr key={idx}>
-              <td className={styles.planetName}>{p.planet} {p.isRetrograde ? '(R)' : ''}</td>
-              <td>{p.rashi}</td>
-              <td>{p.house}</td>
-              <td>{formatDegree(p.degree)}</td>
-              <td>{p.nakshatra}</td>
-            </tr>
-          ))}
+          {planets.map((p, idx) => {
+            const slug = GRAHA_SLUG_MAP[p.planet];
+            return (
+              <tr key={idx}>
+                <td className={styles.planetName}>
+                  {slug ? (
+                    <Link href={`/graha/${slug}`} style={{ textDecoration: 'underline' }}>
+                      {p.planet}
+                    </Link>
+                  ) : (
+                    p.planet
+                  )} {p.isRetrograde ? '(R)' : ''}
+                </td>
+                <td>{p.rashi}</td>
+                <td>{p.house}</td>
+                <td>{formatDegree(p.degree)}</td>
+                <td>{p.nakshatra}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
