@@ -3,6 +3,7 @@ import { rashiData } from '@/data/content/rashi';
 import { nakshatraData } from '@/data/content/nakshatra';
 import { lagnaData } from '@/data/content/lagna';
 import { grahaData } from '@/data/content/graha';
+import { doshaData } from '@/data/content/dosha';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://janmjyotikundali.com';
@@ -34,6 +35,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const grahaSlugs = Object.keys(grahaData);
   const grahaRoutes = grahaSlugs.map((slug) => ({
     url: `${baseUrl}/graha/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
+  const doshaSlugs = Object.keys(doshaData);
+  const doshaRoutes = doshaSlugs.map((slug) => ({
+    url: `${baseUrl}/dosha/${slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
@@ -102,6 +111,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/dosha`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -129,6 +144,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...nakshatraRoutes,
     ...lagnaRoutes,
     ...grahaRoutes,
+    ...doshaRoutes,
     ...rashifalRoutes,
   ];
 }

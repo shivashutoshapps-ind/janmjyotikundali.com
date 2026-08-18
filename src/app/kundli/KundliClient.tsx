@@ -16,7 +16,7 @@ import { KundliResult, BirthData } from '@/lib/astrology/types';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export const KundliClient: React.FC = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [result, setResult] = useState<KundliResult | null>(null);
 
@@ -154,12 +154,23 @@ export const KundliClient: React.FC = () => {
 
               <h4 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>{t('kundli.doshaAnalysis', 'दोष विश्लेषण (Dosha Analysis)')}</h4>
               <div style={{ marginBottom: '3rem' }}>
-                {result.doshas.map((dosha, i) => (
-                  <div key={i} style={{ padding: '1.5rem', background: dosha.isPresent ? 'rgba(220, 38, 38, 0.05)' : 'rgba(22, 163, 74, 0.05)', borderRadius: '8px', border: `1px solid ${dosha.isPresent ? '#dc2626' : '#16a34a'}` }}>
-                    <h5 style={{ color: dosha.isPresent ? '#dc2626' : '#16a34a', fontSize: '1.1rem', marginBottom: '0.5rem' }}>{dosha.name}</h5>
-                    <p style={{ lineHeight: '1.6' }}>{dosha.description}</p>
-                  </div>
-                ))}
+                {result.doshas.map((dosha, i) => {
+                  const isManglik = dosha.name.includes('Manglik Dosha') || dosha.name.includes('मांगलिक दोष');
+                  return (
+                    <div key={i} style={{ padding: '1.5rem', background: dosha.isPresent ? 'rgba(220, 38, 38, 0.05)' : 'rgba(22, 163, 74, 0.05)', borderRadius: '8px', border: `1px solid ${dosha.isPresent ? '#dc2626' : '#16a34a'}` }}>
+                      <h5 style={{ color: dosha.isPresent ? '#dc2626' : '#16a34a', fontSize: '1.1rem', marginBottom: '0.5rem' }}>
+                        {dosha.name}
+                      </h5>
+                      <p style={{ lineHeight: '1.6', marginBottom: dosha.isPresent && isManglik ? '1rem' : '0' }}>{dosha.description}</p>
+                      
+                      {dosha.isPresent && isManglik && (
+                        <Link href="/dosha/mangal-dosha" style={{ color: 'var(--primary)', textDecoration: 'underline', fontWeight: 'bold' }}>
+                          {language === 'hi' ? 'मांगलिक दोष के बारे में विस्तार से पढ़ें' : 'Read more about Manglik Dosha in detail'}
+                        </Link>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
               <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'var(--background)', borderRadius: '8px', borderLeft: '4px solid #f59e0b', fontSize: '0.9rem', color: 'var(--text-light)', lineHeight: '1.6' }}>

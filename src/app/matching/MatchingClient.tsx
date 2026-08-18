@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { useState } from 'react';
 import { KundliForm } from '@/components/KundliForm/KundliForm';
 import { PDFDownloadButton } from '@/components/PDFDownloadButton/PDFDownloadButton';
@@ -138,7 +140,12 @@ export function MatchingClient() {
               <p>{t('astrology.rashi')}: {result.boyRashi.rashi}</p>
               <p>{t('astrology.nakshatra')}: {result.boyNakshatra.nakshatra} ({t('kundli.pada')} {result.boyNakshatra.pada})</p>
               {result.boyDoshas.length > 0 ? (
-                <div className={styles.doshaWarning}>{t('matching.manglikYes', 'मांगलिक दोष उपस्थित है')}</div>
+                <div className={styles.doshaWarning}>
+                  {t('matching.manglikYes', 'मांगलिक दोष उपस्थित है')}{' '}
+                  <Link href="/dosha/mangal-dosha" style={{ color: '#dc2626', textDecoration: 'underline', fontSize: '0.85em', marginLeft: '0.5rem' }}>
+                    (Read more)
+                  </Link>
+                </div>
               ) : (
                 <div className={styles.doshaClear}>{t('matching.manglikNo', 'मांगलिक दोष नहीं है')}</div>
               )}
@@ -148,7 +155,12 @@ export function MatchingClient() {
               <p>{t('astrology.rashi')}: {result.girlRashi.rashi}</p>
               <p>{t('astrology.nakshatra')}: {result.girlNakshatra.nakshatra} ({t('kundli.pada')} {result.girlNakshatra.pada})</p>
               {result.girlDoshas.length > 0 ? (
-                <div className={styles.doshaWarning}>{t('matching.manglikYes', 'मांगलिक दोष उपस्थित है')}</div>
+                <div className={styles.doshaWarning}>
+                  {t('matching.manglikYes', 'मांगलिक दोष उपस्थित है')}{' '}
+                  <Link href="/dosha/mangal-dosha" style={{ color: '#dc2626', textDecoration: 'underline', fontSize: '0.85em', marginLeft: '0.5rem' }}>
+                    (Read more)
+                  </Link>
+                </div>
               ) : (
                 <div className={styles.doshaClear}>{t('matching.manglikNo', 'मांगलिक दोष नहीं है')}</div>
               )}
