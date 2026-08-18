@@ -7,12 +7,17 @@ import { PanchangResult } from '@/lib/astrology/types';
 import { PDFDownloadButton } from '@/components/PDFDownloadButton/PDFDownloadButton';
 import { PanchangReport } from '@/lib/pdf/PanchangReport';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
+import { getTodayISTDateString } from '@/lib/dateUtils';
 import styles from './PanchangClient.module.css';
 
-export const PanchangClient: React.FC = () => {
+interface Props {
+  initialData?: PanchangResult | null;
+}
+
+export const PanchangClient: React.FC<Props> = ({ initialData }) => {
   const { t } = useLanguage();
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [result, setResult] = useState<PanchangResult | null>(null);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(initialData ? 'success' : 'idle');
+  const [result, setResult] = useState<PanchangResult | null>(initialData || null);
 
   const handleFetchPanchang = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +46,7 @@ export const PanchangClient: React.FC = () => {
       <form className={styles.panchangForm} onSubmit={handleFetchPanchang}>
         <div className={styles.inputGroup}>
           <label htmlFor="date">{t('common.date', 'तिथि (Date)')}</label>
-          <input type="date" id="date" name="date" defaultValue={new Date().toISOString().split('T')[0]} required />
+          <input type="date" id="date" name="date" defaultValue={getTodayISTDateString()} required />
         </div>
         <div className={styles.inputGroup}>
           <label htmlFor="location">{t('common.place', 'स्थान (Location)')}</label>

@@ -5,7 +5,13 @@ import { AstroToolLayout } from '@/components/AstroToolLayout/AstroToolLayout';
 import { PanchangClient } from './PanchangClient';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 
-export default function PanchangPageClient() {
+import { PanchangResult } from '@/lib/astrology/types';
+
+interface Props {
+  initialData?: PanchangResult | null;
+}
+
+export default function PanchangPageClient({ initialData }: Props) {
   const { t } = useLanguage();
   return (
     <AstroToolLayout 
@@ -20,7 +26,7 @@ export default function PanchangPageClient() {
         { label: t('nav.panchang') }
       ]}
     >
-      <PanchangClient />
+      <PanchangClient initialData={initialData} />
     </AstroToolLayout>
   );
 }

@@ -40,6 +40,8 @@ export async function generateStaticParams() {
   }));
 }
 
+export const revalidate = 3600;
+
 export default async function RashifalDetailPage({ params }: Props) {
   const { rashi } = params;
   

@@ -2,6 +2,7 @@
 
 import { AstronomyEngineProvider } from '@/lib/astrology/AstronomyEngineProvider';
 import { BirthData } from '@/lib/astrology/types';
+import { getTodayISTDateString } from '@/lib/dateUtils';
 
 const provider = new AstronomyEngineProvider();
 
@@ -45,14 +46,7 @@ export async function calculatePanchangAction(dateStr: string, locationStr: stri
 }
 
 export async function calculateRashifalAction(rashiSlug: string) {
-  // Use current IST time for Daily Rashifal by default if no date string provided
-  // In a real app we'd let user select the date, but for Daily Rashifal it's today.
-  const utcNow = new Date();
-  
-  // Create IST date approximation: add 5.5 hours, get local YMD, then use 12:00 UTC for transit calculation midpoint
-  const istTime = new Date(utcNow.getTime() + (5.5 * 3600000));
-  const dateStr = `${istTime.getUTCFullYear()}-${String(istTime.getUTCMonth()+1).padStart(2, '0')}-${String(istTime.getUTCDate()).padStart(2, '0')}`;
-  
+  const dateStr = getTodayISTDateString();
   const calcDate = new Date(`${dateStr}T12:00:00Z`);
   return provider.getDailyRashifal(calcDate, rashiSlug);
 }
