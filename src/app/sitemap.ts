@@ -47,14 +47,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     ...[
-      'mesh', 'vrishabh', 'mithun', 'kark', 'simha', 'kanya',
+      'mesh', 'vrishabh', 'mithun', 'kark', 'singh', 'kanya',
       'tula', 'vrishchik', 'dhanu', 'makar', 'kumbh', 'meen'
-    ].map(rashi => ({
-      url: `${baseUrl}/rashifal/${rashi}`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 0.8,
-    })),
+    ].flatMap(rashi => ([
+      {
+        url: `${baseUrl}/rashifal/${rashi}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/rashi/${rashi}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      }
+    ])),
     {
       url: `${baseUrl}/matching`,
       lastModified: new Date(),

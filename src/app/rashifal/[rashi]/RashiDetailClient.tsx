@@ -61,6 +61,12 @@ export default function RashiDetailClient({ rashiSlug, result }: Props) {
         <p>{interpretation.advice}</p>
       </div>
 
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <Link href={`/rashi/${rashiSlug}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--primary)', color: 'white', borderRadius: '4px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block' }}>
+          {t('common.readAboutRashi', `${moonSignDevanagari} राशि के बारे में विस्तृत जानकारी पढ़ें`)}
+        </Link>
+      </div>
+
       <div style={{ marginTop: '3rem' }}>
         <h3 style={{ marginBottom: '1rem', color: 'var(--primary)' }}>ग्रह गोचर स्थिति (Planetary Transit)</h3>
         <div style={{ overflowX: 'auto' }}>

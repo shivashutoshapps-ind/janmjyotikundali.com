@@ -38,14 +38,19 @@ export default function RashifalDashboardClient() {
     >
       <div className={styles.grid}>
         {RASHIS.map((rashi) => (
-          <Link key={rashi.slug} href={`/rashifal/${rashi.slug}`} className={styles.card}>
-            <div className={styles.iconPlaceholder}>
-              {/* Fallback to first letter if no SVG icon */}
-              {rashi.name.charAt(0)}
-            </div>
-            <h3 className={styles.cardTitle}>{rashi.name}</h3>
-            <p className={styles.cardSubtitle}>{rashi.en}</p>
-          </Link>
+          <div key={rashi.slug} className={styles.card} style={{ display: 'flex', flexDirection: 'column' }}>
+            <Link href={`/rashifal/${rashi.slug}`} style={{ textDecoration: 'none', flexGrow: 1 }}>
+              <div className={styles.iconPlaceholder}>
+                {/* Fallback to first letter if no SVG icon */}
+                {rashi.name.charAt(0)}
+              </div>
+              <h3 className={styles.cardTitle}>{rashi.name}</h3>
+              <p className={styles.cardSubtitle}>{rashi.en}</p>
+            </Link>
+            <Link href={`/rashi/${rashi.slug}`} style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--primary)', textDecoration: 'underline', textAlign: 'center' }}>
+              {t('common.readAboutRashi', `${rashi.name} राशि के बारे में जानें`)}
+            </Link>
+          </div>
         ))}
       </div>
 
