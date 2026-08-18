@@ -6,7 +6,7 @@ import styles from './Footer.module.css';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export const Footer: React.FC = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.footerContainer}`}>

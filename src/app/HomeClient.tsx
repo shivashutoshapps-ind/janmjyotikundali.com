@@ -20,7 +20,7 @@ import styles from './page.module.css';
 import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 export default function HomeClient() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const tools = [
     { title: t('nav.kundli'), desc: t('home.kundliDesc', 'अपनी विस्तृत जन्म कुंडली बनाएं'), icon: <Star />, href: '/kundli' },
     { title: t('nav.matching'), desc: t('home.matchingDesc', 'विवाह के लिए गुण मिलान'), icon: <Heart />, href: '/kundli-matching' },

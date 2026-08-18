@@ -20,7 +20,7 @@ export const KundliForm: React.FC<KundliFormProps> = ({
   subtitle,
   buttonText
 }) => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const router = useRouter();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
