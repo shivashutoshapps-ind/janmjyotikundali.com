@@ -10,11 +10,11 @@ export async function generateStaticParams() {
 }
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const data = nakshatraData[slug];
 
   if (!data) return {};
@@ -33,8 +33,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function NakshatraReferencePage({ params }: Props) {
-  const { slug } = params;
+export default async function NakshatraReferencePage({ params }: Props) {
+  const { slug } = await params;
   const data = nakshatraData[slug];
 
   if (!data) {

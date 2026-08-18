@@ -11,11 +11,11 @@ const RASHI_SLUGS = [
 ];
 
 interface Props {
-  params: { rashi: string };
+  params: Promise<{ rashi: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { rashi } = params;
+  const { rashi } = await params;
   if (!RASHI_SLUGS.includes(rashi)) return {};
 
   const name = getRashiNameFromSlug(rashi);
@@ -43,7 +43,7 @@ export async function generateStaticParams() {
 export const revalidate = 3600;
 
 export default async function RashifalDetailPage({ params }: Props) {
-  const { rashi } = params;
+  const { rashi } = await params;
   
   if (!RASHI_SLUGS.includes(rashi)) {
     notFound();
