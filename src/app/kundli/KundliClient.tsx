@@ -81,7 +81,26 @@ export const KundliClient: React.FC = () => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
                 <div style={{ padding: '1rem', background: 'var(--background)', borderRadius: '4px', borderLeft: '4px solid var(--primary)' }}>
                   <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{t('astrology.lagna')}</p>
-                  <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{result.lagna.lagna}</p>
+                  {(() => {
+                    const lagnaNames = [
+                      'मेष (Aries)', 'वृषभ (Taurus)', 'मिथुन (Gemini)', 'कर्क (Cancer)',
+                      'सिंह (Leo)', 'कन्या (Virgo)', 'तुला (Libra)', 'वृश्चिक (Scorpio)',
+                      'धनु (Sagittarius)', 'मकर (Capricorn)', 'कुंभ (Aquarius)', 'मीन (Pisces)'
+                    ];
+                    const lagnaSlugs = [
+                      'mesh', 'vrishabh', 'mithun', 'kark',
+                      'singh', 'kanya', 'tula', 'vrishchik',
+                      'dhanu', 'makar', 'kumbh', 'meen'
+                    ];
+                    const index = lagnaNames.indexOf(result.lagna.lagna);
+                    const slug = index !== -1 ? lagnaSlugs[index] : null;
+
+                    return (
+                      <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
+                        {slug ? <Link href={`/lagna/${slug}`} style={{ textDecoration: 'underline' }}>{result.lagna.lagna}</Link> : result.lagna.lagna}
+                      </p>
+                    );
+                  })()}
                 </div>
                 <div style={{ padding: '1rem', background: 'var(--background)', borderRadius: '4px', borderLeft: '4px solid var(--primary)' }}>
                   <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{t('astrology.rashi')}</p>

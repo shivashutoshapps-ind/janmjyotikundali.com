@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { nakshatraData } from '@/data/content/nakshatra';
+import { lagnaData } from '@/data/content/lagna';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://janmjyotikundali.com';
@@ -66,6 +67,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ])),
     ...Object.keys(nakshatraData).map((slug) => ({
       url: `${baseUrl}/nakshatra/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+    ...Object.keys(lagnaData).map((slug) => ({
+      url: `${baseUrl}/lagna/${slug}`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
