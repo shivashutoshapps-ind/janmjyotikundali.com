@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { KundliForm } from '@/components/KundliForm/KundliForm';
 import { CalculationState } from '@/components/CalculationState/CalculationState';
 import { NorthIndianChart } from '@/components/KundliChart/NorthIndianChart';
+import Link from 'next/link';
 import { PlanetaryTable } from '@/components/PlanetaryTable/PlanetaryTable';
 import { DashaTree } from '@/components/DashaTree/DashaTree';
 import { PDFDownloadButton } from '@/components/PDFDownloadButton/PDFDownloadButton';
@@ -88,7 +89,34 @@ export const KundliClient: React.FC = () => {
                 </div>
                 <div style={{ padding: '1rem', background: 'var(--background)', borderRadius: '4px', borderLeft: '4px solid var(--primary)' }}>
                   <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{t('astrology.nakshatra')}</p>
-                  <p style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{result.nakshatra.nakshatra}</p>
+                  {(() => {
+                    const nakshatraNames = [
+                      'अश्विनी (Ashwini)', 'भरणी (Bharani)', 'कृत्तिका (Krittika)', 'रोहिणी (Rohini)', 
+                      'मृगशिरा (Mrigashira)', 'आर्द्रा (Ardra)', 'पुनर्वसु (Punarvasu)', 'पुष्य (Pushya)', 
+                      'आश्लेषा (Ashlesha)', 'मघा (Magha)', 'पूर्वाफाल्गुनी (Purva Phalguni)', 'उत्तराफाल्गुनी (Uttara Phalguni)',
+                      'हस्त (Hasta)', 'चित्रा (Chitra)', 'स्वाति (Swati)', 'विशाखा (Vishakha)', 
+                      'अनुराधा (Anuradha)', 'ज्येष्ठा (Jyeshtha)', 'मूल (Mula)', 'पूर्वाषाढ़ा (Purva Ashadha)', 
+                      'उत्तराषाढ़ा (Uttara Ashadha)', 'श्रवण (Shravana)', 'धनिष्ठा (Dhanishta)', 'शतभिषा (Shatabhisha)',
+                      'पूर्वाभाद्रपद (Purva Bhadrapada)', 'उत्तराभाद्रपद (Uttara Bhadrapada)', 'रेवती (Revati)'
+                    ];
+                    const nakshatraSlugs = [
+                      'ashwini', 'bharani', 'krittika', 'rohini',
+                      'mrigashira', 'ardra', 'punarvasu', 'pushya',
+                      'ashlesha', 'magha', 'purva-phalguni', 'uttara-phalguni',
+                      'hasta', 'chitra', 'swati', 'vishakha',
+                      'anuradha', 'jyeshtha', 'mula', 'purva-ashadha',
+                      'uttara-ashadha', 'shravana', 'dhanishtha', 'shatabhisha',
+                      'purva-bhadrapada', 'uttara-bhadrapada', 'revati'
+                    ];
+                    const index = nakshatraNames.indexOf(result.nakshatra.nakshatra);
+                    const slug = index !== -1 ? nakshatraSlugs[index] : null;
+
+                    return (
+                      <p style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>
+                        {slug ? <Link href={`/nakshatra/${slug}`} style={{ textDecoration: 'underline' }}>{result.nakshatra.nakshatra}</Link> : result.nakshatra.nakshatra}
+                      </p>
+                    );
+                  })()}
                   <p style={{ fontSize: '0.85rem' }}>{t('kundli.pada', 'चरण')}: {result.nakshatra.pada}</p>
                 </div>
               </div>

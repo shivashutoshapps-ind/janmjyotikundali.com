@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { KundliForm } from '@/components/KundliForm/KundliForm';
 import { CalculationState } from '@/components/CalculationState/CalculationState';
+import Link from 'next/link';
 
 import { calculateNakshatraAction } from '@/app/actions/astrology';
 import { NakshatraResult, BirthData } from '@/lib/astrology/types';
@@ -47,10 +48,47 @@ export const NakshatraClient: React.FC = () => {
         
         {status === 'success' && result && (
           <div style={{ padding: '2rem', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '8px', textAlign: 'center' }}>
-            <h3 style={{ color: 'var(--primary)', fontSize: '1.5rem', marginBottom: '1rem' }}>आपका जन्म नक्षत्र: {result.nakshatra}</h3>
-            <p style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}><strong>चरण (Pada):</strong> {result.pada}</p>
-            <p style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}><strong>नक्षत्र स्वामी:</strong> {result.lord}</p>
-            <p style={{ fontSize: '1.1rem', padding: '1rem', background: 'var(--background)', borderRadius: '4px' }}>{result.description}</p>
+            {(() => {
+              const nakshatraNames = [
+                'अश्विनी (Ashwini)', 'भरणी (Bharani)', 'कृत्तिका (Krittika)', 'रोहिणी (Rohini)', 
+                'मृगशिरा (Mrigashira)', 'आर्द्रा (Ardra)', 'पुनर्वसु (Punarvasu)', 'पुष्य (Pushya)', 
+                'आश्लेषा (Ashlesha)', 'मघा (Magha)', 'पूर्वाफाल्गुनी (Purva Phalguni)', 'उत्तराफाल्गुनी (Uttara Phalguni)',
+                'हस्त (Hasta)', 'चित्रा (Chitra)', 'स्वाति (Swati)', 'विशाखा (Vishakha)', 
+                'अनुराधा (Anuradha)', 'ज्येष्ठा (Jyeshtha)', 'मूल (Mula)', 'पूर्वाषाढ़ा (Purva Ashadha)', 
+                'उत्तराषाढ़ा (Uttara Ashadha)', 'श्रवण (Shravana)', 'धनिष्ठा (Dhanishta)', 'शतभिषा (Shatabhisha)',
+                'पूर्वाभाद्रपद (Purva Bhadrapada)', 'उत्तराभाद्रपद (Uttara Bhadrapada)', 'रेवती (Revati)'
+              ];
+              const nakshatraSlugs = [
+                'ashwini', 'bharani', 'krittika', 'rohini',
+                'mrigashira', 'ardra', 'punarvasu', 'pushya',
+                'ashlesha', 'magha', 'purva-phalguni', 'uttara-phalguni',
+                'hasta', 'chitra', 'swati', 'vishakha',
+                'anuradha', 'jyeshtha', 'mula', 'purva-ashadha',
+                'uttara-ashadha', 'shravana', 'dhanishtha', 'shatabhisha',
+                'purva-bhadrapada', 'uttara-bhadrapada', 'revati'
+              ];
+              const index = nakshatraNames.indexOf(result.nakshatra);
+              const slug = index !== -1 ? nakshatraSlugs[index] : null;
+
+              return (
+                <>
+                  <h3 style={{ color: 'var(--primary)', fontSize: '1.5rem', marginBottom: '1rem' }}>
+                    आपका जन्म नक्षत्र: {slug ? <Link href={`/nakshatra/${slug}`} style={{ textDecoration: 'underline' }}>{result.nakshatra}</Link> : result.nakshatra}
+                  </h3>
+                  <p style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}><strong>चरण (Pada):</strong> {result.pada}</p>
+                  <p style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}><strong>नक्षत्र स्वामी:</strong> {result.lord}</p>
+                  <p style={{ fontSize: '1.1rem', padding: '1rem', background: 'var(--background)', borderRadius: '4px' }}>{result.description}</p>
+                  
+                  {slug && (
+                    <div style={{ marginTop: '1.5rem', marginBottom: '1rem' }}>
+                      <Link href={`/nakshatra/${slug}`} style={{ padding: '0.75rem 1.5rem', background: 'var(--surface)', color: 'var(--primary)', border: '1px solid var(--primary)', borderRadius: '4px', fontWeight: 'bold', textDecoration: 'none', display: 'inline-block' }}>
+                        {t('common.readMoreNakshatra', 'विस्तृत जानकारी पढ़ें')}
+                      </Link>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
             
             <button 
               onClick={() => { setStatus('idle'); setResult(null); }}
