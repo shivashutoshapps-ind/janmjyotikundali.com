@@ -21,7 +21,6 @@ export default function KundliPageClient() {
       }
       breadcrumbs={[
         { label: t('nav.home'), href: '/' },
-        { label: t('tools.astroTools') },
         { label: t('nav.kundli') }
       ]}
     >
